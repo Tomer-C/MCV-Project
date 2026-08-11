@@ -1,5 +1,3 @@
-readme_content = """# Distributed GPU Cluster Launcher
-
 Minimalist tool to run PyTorch workloads across multiple Azure VMs.
 
 ## Setup
