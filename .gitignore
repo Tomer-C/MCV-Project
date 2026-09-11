@@ -1,0 +1,29 @@
+# data / training outputs
+data/
+runs/
+results/
+results_*/
+samples/
+smile_results/
+cross_experiments/
+attr_splits/
+bn_check_out/
+*.pt
+*.log
+
+# local copies of reference material and machine snapshots
+IGN-main*/
+MCV-Project-main/
+*.zip
+train_ign_othervm.py
+*_structure.txt
+*_strucuture.txt
+
+# generated figures / screenshots
+*.png
+*.jpg
+
+# tooling
+__pycache__/
+.idea/
+.vscode/
