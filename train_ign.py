@@ -282,7 +282,13 @@ def setup_feature_check(args, device, run_dir):
             print(f"feature check [{split}]: using saved id lists from {list_dir} "
                   f"({len(pools['has'])} has / {len(pools['lacks'])} lacks)")
         else:
-            col = ds.base.attr[:, feature_idx]
+            base_attr = getattr(getattr(ds, "base", None), "attr", None)
+            if base_attr is None:
+                # e.g. the synthetic dataset of scripts/integration_test.py
+                print("feature check off: dataset exposes no ground-truth "
+                      "attribute matrix and no attr_splits/ lists were found")
+                return None
+            col = base_attr[:, feature_idx]
             pools = {"has": (col == 1).nonzero(as_tuple=True)[0],
                      "lacks": (col == 0).nonzero(as_tuple=True)[0]}
             print(f"feature check [{split}]: no saved lists found "
