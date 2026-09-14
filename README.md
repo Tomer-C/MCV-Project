@@ -29,6 +29,9 @@ Built on the reference implementation in `../IGN-main` (Shocher et al., ICLR
 | `scripts/integration_test.py` | full pipeline on synthetic data, no data needed |
 | `scripts/run_pipeline.sh` | end-to-end driver |
 
+**New here?** [TRAINING.md](TRAINING.md) walks through training an IGN and
+tuning the hyperparameters.
+
 ## Quick start
 
 ```bash
