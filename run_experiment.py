@@ -55,6 +55,11 @@ def get_args_parser():
                         "gaussian, 'real' = real test images")
     p.add_argument("--init_spec", default="all",
                    help="when --init real, which subset x_0 is drawn from")
+    p.add_argument("--noise_stats_spec", default="",
+                   help="with --init noise: build the FFT noise statistics from "
+                        "a train batch matching this attr spec (e.g. the target "
+                        "intersection 'Male,Smiling') instead of the first "
+                        "checkpoint's stored stats")
     p.add_argument("--bn_mode", default="train", choices=["train", "eval"],
                    help="train = batch-statistics BatchNorm, the only mode "
                         "upstream IGN ever runs in (running stats untouched); "
@@ -126,7 +131,17 @@ def main(args):
     results = {"config": vars(args), "model_specs": dict(zip(names, model_specs))}
 
     # ---- x_0 ------------------------------------------------------------
-    if args.init in ("noise", "white"):
+    if args.init == "noise" and args.noise_stats_spec:
+        # FFT statistics of a chosen subset (e.g. the target intersection)
+        # instead of the stats stored in the first checkpoint
+        from ign_utils import freq_stats_from_images
+        ds_stats = get_filtered_dataset(args, args.noise_stats_spec, split="train")
+        g = torch.Generator().manual_seed(args.seed)
+        sel = torch.randperm(len(ds_stats), generator=g)[:256]
+        imgs = torch.stack([ds_stats[i][0] for i in sel.tolist()]).to(device)
+        x0 = sample_freq_noise(freq_stats_from_images(imgs), args.num_samples)
+        init_desc = f"fft-matched noise (stats of {args.noise_stats_spec!r} train images)"
+    elif args.init in ("noise", "white"):
         freq_stats = model_ckpts[0].get("freq_stats") if args.init == "noise" else None
         if freq_stats is not None:
             freq_stats = {k: v.to(device) for k, v in freq_stats.items()}

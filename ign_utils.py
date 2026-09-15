@@ -237,7 +237,8 @@ def to_uint8(x):
 
 def save_image_grid(tensor, path, nrow=8):
     from torchvision.utils import save_image
-    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if os.path.dirname(path):
+        os.makedirs(os.path.dirname(path), exist_ok=True)
     save_image(tensor.detach().cpu().clamp(-1, 1), path, nrow=nrow, normalize=True,
                value_range=(-1, 1))
 
