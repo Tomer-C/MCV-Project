@@ -1,0 +1,321 @@
+{
+  "config": {
+    "models": [
+      "runs/Male_500_withsamples/ckpt_0075.pt",
+      "runs/Smiling_paper500/ckpt_0075.pt",
+      "runs/Blond_Hair_500/ckpt_0075.pt"
+    ],
+    "names": [
+      "f_Male",
+      "f_Smiling",
+      "f_Blond_Hair"
+    ],
+    "baseline": null,
+    "intersection_spec": "Male,Smiling,Blond_Hair",
+    "classifier": "<ABS_PROJECT_DIR>/runs/classifier/classifier.pt",
+    "num_iters": 15,
+    "num_samples": 256,
+    "init": "noise",
+    "init_spec": "all",
+    "bn_mode": "train",
+    "damped_alpha": 0.5,
+    "skip_damped": false,
+    "skip_orders": false,
+    "skip_fid": true,
+    "data_root": "./data",
+    "image_size": 64,
+    "batch_size": 128,
+    "num_workers": 2,
+    "ddp": false,
+    "device": null,
+    "seed": 0,
+    "out_dir": "exp_results/alt_k3",
+    "tag": "Male_Smiling_Blond"
+  },
+  "model_specs": {
+    "f_Male": "Male",
+    "f_Smiling": "Smiling",
+    "f_Blond_Hair": "Blond_Hair"
+  },
+  "alternating": {
+    "step_norm_mean": [
+      82.1180191040039,
+      13.61666202545166,
+      10.444049835205078,
+      8.799603462219238,
+      7.803481101989746,
+      7.114620685577393,
+      6.651736259460449,
+      6.325397968292236,
+      5.9976677894592285,
+      5.677485942840576,
+      5.472214698791504,
+      5.328105926513672,
+      5.216251850128174,
+      5.050302505493164,
+      4.871230125427246
+    ],
+    "step_norm_final": 4.871230125427246,
+    "image_norm_mean": [
+      58.65885925292969,
+      59.14664840698242,
+      58.957122802734375,
+      58.619964599609375,
+      58.356624603271484,
+      58.16985321044922,
+      58.025390625,
+      57.93181610107422,
+      57.869842529296875,
+      57.8231315612793,
+      57.796226501464844,
+      57.76553726196289,
+      57.73621368408203,
+      57.705780029296875,
+      57.66787338256836
+    ],
+    "cycle_distance_mean": [
+      82.1180191040039,
+      13.61666202545166,
+      10.444049835205078,
+      8.799603462219238,
+      7.803481101989746,
+      7.114620685577393,
+      6.651736259460449,
+      6.325397968292236,
+      5.9976677894592285,
+      5.677485942840576,
+      5.472214698791504,
+      5.328105926513672,
+      5.216251850128174,
+      5.050302505493164,
+      4.871230125427246
+    ],
+    "idem_residual_f_Male": [
+      0.14159679412841797,
+      0.13526469469070435,
+      0.13161292672157288,
+      0.12955644726753235,
+      0.12865939736366272,
+      0.12796024978160858,
+      0.12743517756462097,
+      0.12709686160087585,
+      0.12703856825828552,
+      0.12707364559173584,
+      0.12695273756980896,
+      0.12680673599243164,
+      0.1266247034072876,
+      0.12650790810585022,
+      0.12653467059135437
+    ],
+    "idem_residual_f_Smiling": [
+      0.11932173371315002,
+      0.11200135946273804,
+      0.10868528485298157,
+      0.10691212117671967,
+      0.10607851296663284,
+      0.10567687451839447,
+      0.10552425682544708,
+      0.10537778586149216,
+      0.10533279180526733,
+      0.10535182058811188,
+      0.1053219884634018,
+      0.10535100847482681,
+      0.10528984665870667,
+      0.10522998869419098,
+      0.1052611693739891
+    ],
+    "idem_residual_f_Blond_Hair": [
+      0.05164630711078644,
+      0.048425253480672836,
+      0.04713445529341698,
+      0.04564421623945236,
+      0.04432021081447601,
+      0.04350081831216812,
+      0.0429784432053566,
+      0.042562562972307205,
+      0.0421079657971859,
+      0.04180102050304413,
+      0.041696153581142426,
+      0.04156026244163513,
+      0.04131857305765152,
+      0.04109150171279907,
+      0.040935076773166656
+    ],
+    "joint_residual_final": 0.12656337022781372,
+    "converged": false,
+    "diverged": false
+  },
+  "damped": {
+    "alpha": 0.5,
+    "step_norm_mean": [
+      41.05900955200195,
+      19.337400436401367,
+      10.586082458496094,
+      7.395259380340576,
+      5.871076583862305,
+      5.036716461181641,
+      4.530143737792969,
+      4.181623458862305,
+      3.919093608856201,
+      3.7129316329956055,
+      3.5498366355895996,
+      3.408487558364868,
+      3.2742931842803955,
+      3.161412000656128,
+      3.070866346359253
+    ],
+    "joint_residual_mean": [
+      0.3171509802341461,
+      0.18275287747383118,
+      0.15492886304855347,
+      0.14415505528450012,
+      0.13862426578998566,
+      0.13546153903007507,
+      0.1334921419620514,
+      0.1320592761039734,
+      0.13099247217178345,
+      0.13019642233848572,
+      0.1295558512210846,
+      0.12902669608592987,
+      0.12858542799949646,
+      0.12824413180351257,
+      0.1280013769865036
+    ],
+    "joint_residual_final": 0.1280013769865036
+  },
+  "attr_rates": {
+    "x0": {
+      "per_attr": {
+        "Male": 0.81640625,
+        "Smiling": 0.08984375,
+        "Blond_Hair": 0.0
+      },
+      "joint": 0.0,
+      "mean_prob": {
+        "Male": 0.7816231846809387,
+        "Smiling": 0.14876969158649445,
+        "Blond_Hair": 0.008095314726233482
+      },
+      "n": 256
+    },
+    "alternating": {
+      "per_attr": {
+        "Male": 0.11328125,
+        "Smiling": 0.50390625,
+        "Blond_Hair": 0.53125
+      },
+      "joint": 0.00390625,
+      "mean_prob": {
+        "Male": 0.13059496879577637,
+        "Smiling": 0.5101412534713745,
+        "Blond_Hair": 0.5256900787353516
+      },
+      "n": 256
+    },
+    "single_f_Male": {
+      "per_attr": {
+        "Male": 0.99609375,
+        "Smiling": 0.5,
+        "Blond_Hair": 0.0
+      },
+      "joint": 0.0,
+      "mean_prob": {
+        "Male": 0.9908732175827026,
+        "Smiling": 0.5067393779754639,
+        "Blond_Hair": 0.012966465204954147
+      },
+      "n": 256
+    },
+    "single_f_Smiling": {
+      "per_attr": {
+        "Male": 0.33984375,
+        "Smiling": 0.96484375,
+        "Blond_Hair": 0.125
+      },
+      "joint": 0.0078125,
+      "mean_prob": {
+        "Male": 0.3492034673690796,
+        "Smiling": 0.9454303979873657,
+        "Blond_Hair": 0.13530682027339935
+      },
+      "n": 256
+    },
+    "single_f_Blond_Hair": {
+      "per_attr": {
+        "Male": 0.00390625,
+        "Smiling": 0.5390625,
+        "Blond_Hair": 0.859375
+      },
+      "joint": 0.0,
+      "mean_prob": {
+        "Male": 0.004671623930335045,
+        "Smiling": 0.5480630993843079,
+        "Blond_Hair": 0.8140444159507751
+      },
+      "n": 256
+    },
+    "real_intersection": {
+      "per_attr": {
+        "Male": 0.8854166865348816,
+        "Smiling": 0.9166666865348816,
+        "Blond_Hair": 0.3854166567325592
+      },
+      "joint": 0.3125,
+      "mean_prob": {
+        "Male": 0.8553008437156677,
+        "Smiling": 0.8972992897033691,
+        "Blond_Hair": 0.3947810232639313
+      },
+      "n": 96
+    }
+  },
+  "orders": {
+    "f_Blond_Hair o f_Smiling o f_Male": {
+      "step_norm_final": 4.871230125427246,
+      "joint_residual_final": 0.12656337022781372,
+      "joint_attr_rate": 0.00390625
+    },
+    "f_Smiling o f_Blond_Hair o f_Male": {
+      "step_norm_final": 5.51859712600708,
+      "joint_residual_final": 0.11015976220369339,
+      "joint_attr_rate": 0.01171875
+    },
+    "f_Blond_Hair o f_Male o f_Smiling": {
+      "step_norm_final": 5.084258079528809,
+      "joint_residual_final": 0.12567594647407532,
+      "joint_attr_rate": 0.015625
+    },
+    "f_Male o f_Blond_Hair o f_Smiling": {
+      "step_norm_final": 5.609554290771484,
+      "joint_residual_final": 0.12774065136909485,
+      "joint_attr_rate": 0.0
+    },
+    "f_Smiling o f_Male o f_Blond_Hair": {
+      "step_norm_final": 5.468504905700684,
+      "joint_residual_final": 0.13168278336524963,
+      "joint_attr_rate": 0.00390625
+    },
+    "f_Male o f_Smiling o f_Blond_Hair": {
+      "step_norm_final": 5.568687915802002,
+      "joint_residual_final": 0.14912550151348114,
+      "joint_attr_rate": 0.01171875
+    }
+  },
+  "order_disagreement": {
+    "f_Blond_Hair o f_Smiling o f_Male  vs  f_Smiling o f_Blond_Hair o f_Male": 44.250732421875,
+    "f_Blond_Hair o f_Smiling o f_Male  vs  f_Blond_Hair o f_Male o f_Smiling": 65.43522644042969,
+    "f_Blond_Hair o f_Smiling o f_Male  vs  f_Male o f_Blond_Hair o f_Smiling": 69.78216552734375,
+    "f_Blond_Hair o f_Smiling o f_Male  vs  f_Smiling o f_Male o f_Blond_Hair": 67.29669189453125,
+    "f_Blond_Hair o f_Smiling o f_Male  vs  f_Male o f_Smiling o f_Blond_Hair": 69.46023559570312,
+    "f_Smiling o f_Blond_Hair o f_Male  vs  f_Blond_Hair o f_Male o f_Smiling": 65.96009826660156,
+    "f_Smiling o f_Blond_Hair o f_Male  vs  f_Male o f_Blond_Hair o f_Smiling": 69.94645690917969,
+    "f_Smiling o f_Blond_Hair o f_Male  vs  f_Smiling o f_Male o f_Blond_Hair": 68.04138946533203,
+    "f_Smiling o f_Blond_Hair o f_Male  vs  f_Male o f_Smiling o f_Blond_Hair": 66.88275146484375,
+    "f_Blond_Hair o f_Male o f_Smiling  vs  f_Male o f_Blond_Hair o f_Smiling": 46.707481384277344,
+    "f_Blond_Hair o f_Male o f_Smiling  vs  f_Smiling o f_Male o f_Blond_Hair": 68.47897338867188,
+    "f_Blond_Hair o f_Male o f_Smiling  vs  f_Male o f_Smiling o f_Blond_Hair": 67.19227600097656,
+    "f_Male o f_Blond_Hair o f_Smiling  vs  f_Smiling o f_Male o f_Blond_Hair": 69.01278686523438,
+    "f_Male o f_Blond_Hair o f_Smiling  vs  f_Male o f_Smiling o f_Blond_Hair": 70.235595703125,
+    "f_Smiling o f_Male o f_Blond_Hair  vs  f_Male o f_Smiling o f_Blond_Hair": 48.35471725463867
+  }
+}

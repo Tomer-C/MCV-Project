@@ -30,7 +30,35 @@ Built on the reference implementation in `../IGN-main` (Shocher et al., ICLR
 | `scripts/run_pipeline.sh` | end-to-end driver |
 
 **New here?** [TRAINING.md](TRAINING.md) walks through training an IGN and
-tuning the hyperparameters.
+tuning the hyperparameters. **[RESULTS.md](RESULTS.md) documents the full
+experimental campaign** — curated figures and numbers in [`results/`](results/).
+
+## Results in one paragraph
+
+The trained intersection baseline `f_Male∩Smiling` reaches a 0.91 joint
+feature rate at FID 51. Zero-shot pipelines built only from single-feature
+IGNs get to **baseline-level realism**: relaxed alternation (a partial,
+Krasnoselskii–Mann-style projection step) scores 0.55 @ FID 52, per-image
+adaptive stepping 0.67 @ FID 50 with nothing discarded, and
+generate-and-select certifies 100% joint at FID 47 with a 55% sampling
+yield. One alternation cycle is optimal (more only blurs), projector-quality
+checkpoints come from *early* training, and feature-set compatibility — not
+the iteration mechanics — decides success: anti-correlated pairs
+(Male+Blond) fail under every method, compatible triples and quads scale
+gracefully. Full story, laws, and failure modes: [RESULTS.md](RESULTS.md).
+
+## Cluster / VM tooling
+
+All remote experimentation is scripted — no manual SSH needed:
+
+| file | role |
+|---|---|
+| `vm_orchestrate.py` | local driver: `push` / `start` / `status` / `pull` / `watch` / `run` / `stop` over SSH (paramiko); pulls images+reports only, never weights |
+| `vm_experiments.py` | on-VM runner: the standard experiment suite (fastest first) or any ad-hoc `--spec` batch, with a pollable `status.json` |
+| `adaptive_b*.json` | the ad-hoc batches exactly as executed in the campaign |
+| `*_eval.py` | dedicated evaluators (league, relaxation, diversity, scaling, ...) — see RESULTS.md |
+| `vm_config.template.json` | copy to `vm_config.json` (gitignored) and fill in host/user/password |
+| `cluster/` | multi-node torchrun launcher (separate, for DDP training) |
 
 ## Quick start
 

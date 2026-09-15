@@ -1,7 +1,7 @@
 # data / training outputs
 data/
 runs/
-results/
+# results/ is tracked: curated campaign figures (experiment scripts on the VM write to exp_results/)
 results_*/
 samples/
 smile_results/
@@ -37,5 +37,4 @@ __pycache__/
 paths.txt
 *.pdf
 
-# curated result figures/data ARE tracked (exception to *.png above)
 !results/**
