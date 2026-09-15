@@ -1,0 +1,62 @@
+[
+ {
+  "name": "neg_Male_proj",
+  "cwd": "negatives_fix/Male_e0075",
+  "args": [
+   "apply_to_negatives.py",
+   "--feature",
+   "Male",
+   "--ckpt",
+   "<ABS_PROJECT_DIR>/runs/Male_500_withsamples/ckpt_0075.pt",
+   "--classifier",
+   "<ABS_PROJECT_DIR>/runs/classifier/classifier.pt",
+   "--data_root",
+   "<ABS_PROJECT_DIR>/data"
+  ]
+ },
+ {
+  "name": "neg_Smiling_proj",
+  "cwd": "negatives_fix/Smiling_e0025",
+  "args": [
+   "apply_to_negatives.py",
+   "--feature",
+   "Smiling",
+   "--ckpt",
+   "<ABS_PROJECT_DIR>/runs/Smiling_paper500/ckpt_0025.pt",
+   "--classifier",
+   "<ABS_PROJECT_DIR>/runs/classifier/classifier.pt",
+   "--data_root",
+   "<ABS_PROJECT_DIR>/data"
+  ]
+ },
+ {
+  "name": "neg_Blond_proj",
+  "cwd": "negatives_fix/Blond_Hair_e0075",
+  "args": [
+   "apply_to_negatives.py",
+   "--feature",
+   "Blond_Hair",
+   "--ckpt",
+   "<ABS_PROJECT_DIR>/runs/Blond_Hair_500/ckpt_0075.pt",
+   "--classifier",
+   "<ABS_PROJECT_DIR>/runs/classifier/classifier.pt",
+   "--data_root",
+   "<ABS_PROJECT_DIR>/data"
+  ]
+ },
+ {
+  "name": "neg_Young_proj",
+  "cwd": "negatives_fix/Young_e0075",
+  "args": [
+   "apply_to_negatives.py",
+   "--feature",
+   "Young",
+   "--ckpt",
+   "<ABS_PROJECT_DIR>/runs/Young_500/ckpt_0075.pt",
+   "--classifier",
+   "<ABS_PROJECT_DIR>/runs/classifier/classifier.pt",
+   "--data_root",
+   "<ABS_PROJECT_DIR>/data"
+  ]
+ }
+]

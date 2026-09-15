@@ -23,7 +23,19 @@ train_ign_othervm.py
 *.png
 *.jpg
 
+# VM orchestration (credentials + pulled results)
+vm_config.json
+vm_results/
+exp_results/
+
 # tooling
 __pycache__/
 .idea/
 .vscode/
+
+# VM inventory dumps and papers (local reference only)
+paths.txt
+*.pdf
+
+# curated result figures/data ARE tracked (exception to *.png above)
+!results/**

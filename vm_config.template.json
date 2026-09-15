@@ -1,0 +1,9 @@
+{
+  "host": "<VM_IP_OR_DNS>",
+  "user": "<VM_USER>",
+  "password": "<VM_PASSWORD>",
+  "remote_root": "/home/<VM_USER>/project",
+  "project_dir": "<PROJECT_DIR_NAME>",
+  "local_results": "vm_results",
+  "remote_python": ""
+}

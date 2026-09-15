@@ -1,0 +1,2 @@
+[{"name": "train_eyeglasses",
+   "args": ["train_ign.py", "--attr_spec=Eyeglasses", "--run_name", "Eyeglasses_200", "--num_epochs", "200", "--save_every", "25"]}]
