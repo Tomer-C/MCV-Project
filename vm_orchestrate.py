@@ -25,6 +25,12 @@ Commands:
     python vm_orchestrate.py run       # push + start + watch
     python vm_orchestrate.py stop      # kill the remote run
 
+    # generic runner, for one-off scripts outside vm_experiments.py's fixed
+    # suite (e.g. train_commuting_pair.py) -- log at exp_results/<script>.log
+    python vm_orchestrate.py exec <script.py> [-- extra script args]
+    python vm_orchestrate.py tail <script.py>        # tail its log + pgrep
+    python vm_orchestrate.py killscript <script.py>  # pkill -f <script.py>
+
 Only files with these extensions are ever downloaded:
 png jpg jpeg json txt csv md log  --  weights stay on the VM.
 """
@@ -44,7 +50,8 @@ except ImportError:
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "vm_config.json")
 PUSH_FILES = [
-    "vm_experiments.py", "train_ign.py", "ign_models.py", "ign_utils.py",
+    "vm_experiments.py", "train_ign.py", "train_commuting_pair.py",
+    "ign_models.py", "ign_utils.py",
     "ign_data.py", "alternating.py", "run_experiment.py", "metrics.py",
     "cross_checkpoint_experiments.py", "apply_to_negatives.py",
     "rebuild_loss_curves.py", "make_feature_grids.py", "make_attr_splits.py",
@@ -130,6 +137,43 @@ def cmd_start(cli, c, extra):
                                    or "NOT RUNNING -- check exp_results/run.log"))
 
 
+def cmd_exec(cli, c, script, extra):
+    """Launch an arbitrary pushed script remotely (nohup, detached), for
+    one-off jobs like train_commuting_pair.py that aren't part of
+    vm_experiments.py's fixed suite. Log -> exp_results/<script>.log; poll
+    with `tail <script>`, stop with `killscript <script>`."""
+    py = detect_python(cli, c)
+    proj = remote_proj(c)
+    flags = " ".join(extra)
+    log = f"exp_results/{os.path.splitext(script)[0]}.log"
+    cmd = (f"cd {proj} && mkdir -p exp_results && "
+           f"nohup setsid {py} {script} {flags} "
+           f"> {log} 2>&1 < /dev/null & echo started_pid=$!")
+    try:
+        _, out, _ = cli.exec_command(cmd, timeout=15)
+        print(out.readline().strip())
+    except Exception:
+        pass
+    time.sleep(3)
+    o, _, _ = run(cli, f"pgrep -f {script} | head -2 || true")
+    print("running as pid(s): " + (o.strip().replace("\n", ", ")
+                                   or f"NOT RUNNING -- check {log}"))
+
+
+def cmd_tail(cli, c, script, n=40):
+    proj = remote_proj(c)
+    log = f"{proj}/exp_results/{os.path.splitext(script)[0]}.log"
+    o, _, _ = run(cli, f"tail -n {n} {log} 2>/dev/null || echo '(no log yet)'")
+    print(o)
+    o, _, _ = run(cli, f"pgrep -af {script} | grep -v pgrep || true")
+    print("process: " + (o.strip() or "not running"))
+
+
+def cmd_killscript(cli, c, script):
+    run(cli, f"pkill -f {script} || true")
+    print(f"sent kill to {script}")
+
+
 def cmd_status(cli, c):
     proj = remote_proj(c)
     o, _, _ = run(cli, f"ls {proj}/exp_results/status*.json 2>/dev/null")
@@ -206,8 +250,9 @@ def cmd_stop(cli, c):
 
 def main():
     args = sys.argv[1:]
-    if not args or args[0] not in ("push", "start", "status", "pull", "watch",
-                                   "run", "stop"):
+    commands = ("push", "start", "status", "pull", "watch", "run", "stop",
+               "exec", "tail", "killscript")
+    if not args or args[0] not in commands:
         sys.exit(__doc__)
     c = cfg()
     cli = connect(c)
@@ -229,6 +274,16 @@ def main():
             cmd_start(cli, c, args[1:])
             time.sleep(20)
             cmd_watch(cli, c)
+        elif args[0] == "exec":
+            # python vm_orchestrate.py exec <script.py> [-- extra script args]
+            script, extra = args[1], args[2:]
+            if extra and extra[0] == "--":
+                extra = extra[1:]
+            cmd_exec(cli, c, script, extra)
+        elif args[0] == "tail":
+            cmd_tail(cli, c, args[1])
+        elif args[0] == "killscript":
+            cmd_killscript(cli, c, args[1])
     finally:
         cli.close()
 
