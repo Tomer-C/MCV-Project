@@ -142,11 +142,17 @@ every iteration depth, in both domains** — and the commuting-trained pair gets
 *worse* with more composition iterations while naive alternating holds
 roughly flat or improves. Visually:
 
-![In-distribution comparison](results/commuting_loss_experiment/method_comparison_in_distribution.png)
-![Out-of-distribution comparison](results/commuting_loss_experiment/method_comparison_out_of_distribution.png)
+![Male+Smiling, in-distribution comparison](results/commuting_loss_experiment/method_comparison_in_distribution.png)
+![Male+Smiling, out-of-distribution comparison](results/commuting_loss_experiment/method_comparison_out_of_distribution.png)
 
 (Rows top→bottom: `x_0`, the real baseline, naive 1/2/3 iters, commuting
 1/2/3 iters — same input faces across every row.)
+
+The same naive-vs-commuting comparison for Male+Blond_Hair (no trained
+baseline exists for this pair, so no baseline row):
+
+![Male+Blond_Hair, in-distribution comparison](results/commuting_loss_experiment/male_blond_naive_vs_commute_in_distribution.png)
+![Male+Blond_Hair, out-of-distribution comparison](results/commuting_loss_experiment/male_blond_naive_vs_commute_out_of_distribution.png)
 
 ## Conclusion
 
