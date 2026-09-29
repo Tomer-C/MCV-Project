@@ -51,6 +51,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CONFIG = os.path.join(HERE, "vm_config.json")
 PUSH_FILES = [
     "vm_experiments.py", "train_ign.py", "train_commuting_pair.py",
+    "commuting_sweep.py", "commuting_sweep_eval.py", "make_commuting_grids.py",
+    "commuting_sweep_male_smiling.json", "commuting_sweep_male_smiling_followup.json",
+    "commuting_sweep_male_blond.json",
     "ign_models.py", "ign_utils.py",
     "ign_data.py", "alternating.py", "run_experiment.py", "metrics.py",
     "cross_checkpoint_experiments.py", "apply_to_negatives.py",

@@ -38,3 +38,6 @@ paths.txt
 *.pdf
 
 !results/**
+
+# local copies of commuting-sweep figures pulled from the VM (curated ones go in results/)
+commuting_sweep_results/

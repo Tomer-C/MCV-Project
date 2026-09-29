@@ -1,0 +1,15 @@
+{
+  "ckpt_a": "runs/Male_500_withsamples/ckpt_0075.pt",
+  "ckpt_b": "runs/Blond_Hair_500/ckpt_0075.pt",
+  "intersection_spec": "Male,Blond_Hair",
+  "eval_out": "exp_results/commuting_sweep/male_blond",
+  "extra_eval_runs": ["runs/Male_Blond_commuting_probe"],
+  "common_args": ["--num_epochs", "50", "--save_every", "5", "--num_workers", "6",
+                  "--sample_every", "5", "--log_every", "100"],
+  "runs": [
+    {"name": "mb_l1_lam5_lr1e-4", "args": ["--lambda_commute", "5"]},
+    {"name": "mb_l1_lam0_lr2e-5", "args": ["--lambda_commute", "0", "--lr", "2e-5"]},
+    {"name": "mb_l1_lam1_lr2e-5", "args": ["--lambda_commute", "1", "--lr", "2e-5"]},
+    {"name": "mb_l1_lam1_lr1e-4", "args": ["--lambda_commute", "1"]}
+  ]
+}
