@@ -31,7 +31,6 @@ in the checkpoint, same as train_ign.py's output).
 """
 
 import argparse
-import itertools
 import json
 import os
 import time
@@ -93,7 +92,10 @@ def get_args_parser():
     p.add_argument("--commute_metric", default="l1", choices=["l1", "lpips"])
 
     p.add_argument("--device", default=None)
-    p.add_argument("--save_every", default=5, type=int, help="epochs")
+    p.add_argument("--save_every", default=5, type=int,
+                   help="epochs; each save also keeps a ckpt_{A,B}_eNNNN.pt "
+                        "snapshot (NNNN = epochs completed) so one long run "
+                        "can be evaluated at several fine-tuning lengths")
     p.add_argument("--sample_every", default=1, type=int, help="epochs")
     p.add_argument("--log_every", default=50, type=int, help="steps")
     p.add_argument("--max_steps_per_epoch", default=0, type=int,
@@ -107,6 +109,13 @@ def make_noise(x, noise_type, freq_stats=None):
     if noise_type == "x_fft_stats":
         return sample_freq_noise(freq_stats, x.shape[0])
     return torch.randn_like(x)
+
+
+def infinite(loader):
+    """Endless batches, reshuffled each pass. itertools.cycle would instead
+    cache every batch it yields in RAM (~13 MB per 256-image batch)."""
+    while True:
+        yield from loader
 
 
 def load_trainable_pair(ckpt_path, device, norm):
@@ -276,12 +285,10 @@ def train(args):
         fh.write("epoch,step,loss_in_A,loss_out_d_A,loss_in_B,loss_out_d_B,commute,total\n")
     history = []
     fixed_x = None
+    iter_a, iter_b, iter_c = infinite(loader_a), infinite(loader_b), infinite(loader_c)
 
     for epoch in range(args.num_epochs):
         t0 = time.time()
-        iter_a = itertools.cycle(loader_a)
-        iter_b = itertools.cycle(loader_b)
-        iter_c = itertools.cycle(loader_c)
         epoch_sums, epoch_n = {}, 0
         step_rows = []
 
@@ -343,18 +350,21 @@ def train(args):
         if epoch % args.sample_every == 0 or epoch == args.num_epochs - 1:
             save_commute_grid(f_a, f_b, fixed_x, run_dir, epoch)
 
-        if epoch % args.save_every == 0 or epoch == args.num_epochs - 1:
+        done = epoch + 1  # epochs completed
+        if done % args.save_every == 0 or epoch == args.num_epochs - 1:
             # freq stats travel with the checkpoint (as train_ign.py does) so
             # run_experiment.py's --init noise samples matched, on-manifold
             # noise instead of falling back to white noise
             for name, model, arch_name, attr_spec, stats in (
                     ("A", f_a, arch_a, attr_a, stats_a), ("B", f_b, arch_b, attr_b, stats_b)):
-                payload = {"epoch": epoch, "model_state_dict": model.state_dict(),
+                payload = {"epoch": epoch, "epochs_done": done,
+                          "model_state_dict": model.state_dict(),
                           "args": vars(args) | {"arch": arch_name},
                           "attr_spec": attr_spec}
                 if stats is not None:
                     payload["freq_stats"] = {k: v.detach().cpu() for k, v in stats.items()}
                 torch.save(payload, os.path.join(run_dir, f"ckpt_{name}_last.pt"))
+                torch.save(payload, os.path.join(run_dir, f"ckpt_{name}_e{done:04d}.pt"))
 
     print(f"[{args.run_name}] done -> {run_dir}/ckpt_A_last.pt, ckpt_B_last.pt")
 
