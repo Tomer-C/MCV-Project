@@ -107,14 +107,17 @@ grids (rows: `x`, `f_A(x)`, `f_B(x)`, `f_A(f_B(x))`, `f_B(f_A(x))`):
 Order-sensitivity (`run_experiment.py`'s `order_disagreement`, pixel-distance
 between the limits of `f_A∘f_B` vs `f_B∘f_A`) is the direct test of the
 theorem's premise, and it *did* improve — most clearly with real-face
-initialization, less so with noise:
+initialization, less so with noise. (Correction, see
+[COMMUTING_LOSS_SWEEP.md](COMMUTING_LOSS_SWEEP.md): the "→" pairs below are
+the commuting-trained pair at 20 vs 1 iterations, not naive vs commuting; the
+naive 1-iteration values, measured later on the same x₀, are added.)
 
 | pair, init | order distance |
 |---|---|
 | Male+Blond, noise (checkpoint fallback → white) | 39.0 |
-| Male+Blond, real images | 9.5 → 4.4 (at `--num_iters 1`, the project's documented optimum) |
+| Male+Blond, real images | 9.5 (20 iters) → 4.4 (`--num_iters 1`, the project's documented optimum); naive at 1 iter: 19.0 |
 | Male+Smiling, noise (checkpoint fallback → white) | 47.2 |
-| Male+Smiling, real images | 7.0 → 3.5 (at `--num_iters 1`) |
+| Male+Smiling, real images | 7.0 (20 iters) → 3.5 (`--num_iters 1`); naive at 1 iter: 10.9 |
 
 But **the metric that actually matters — joint attribute satisfaction — tells
 a different story**, once compared head-to-head against plain alternating
@@ -153,6 +156,11 @@ baseline exists for this pair, so no baseline row):
 
 ![Male+Blond_Hair, in-distribution comparison](results/commuting_loss_experiment/male_blond_naive_vs_commute_in_distribution.png)
 ![Male+Blond_Hair, out-of-distribution comparison](results/commuting_loss_experiment/male_blond_naive_vs_commute_out_of_distribution.png)
+
+> **Follow-up:** the λ / lr / distance-metric sweep and longer fine-tuning
+> suggested below were run — see [COMMUTING_LOSS_SWEEP.md](COMMUTING_LOSS_SWEEP.md).
+> Longer fine-tuning collapses the pair onto a shared face; a 1–5 epoch,
+> lr = 2e-5, λ = 5 fine-tune gives a small in-distribution gain.
 
 ## Conclusion
 
