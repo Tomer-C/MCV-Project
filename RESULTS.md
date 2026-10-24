@@ -82,6 +82,10 @@ statistics.
 3. **Order: the sharp net generates, the fragile feature goes last/relaxed.**
    Reversing (Smiling first) costs 2× FID at equal joint
    ([`reversed_order.json`](results/limits/reversed_order.json)).
+   The full order study is in [ORDER_EXPERIMENT.md](ORDER_EXPERIMENT.md). From noise, the
+   first net decides the face and the two orders never meet. From real faces, order barely
+   matters. Which order wins on joint rate depends on the checkpoint, and with the final
+   checkpoints it is Male first at every cycle count.
 4. **Feature compatibility decides everything.** Correlated pairs work
    (Male+Smiling, Male+Black: [`black_pairs_relaxed.json`](results/limits/black_pairs_relaxed.json));
    anti-correlated pairs fail under every method tried — `f_Blond` literally
