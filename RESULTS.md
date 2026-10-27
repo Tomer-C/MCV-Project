@@ -110,6 +110,10 @@ statistics.
 Graceful yield decay for compatible sets; one adversarial member kills the
 whole iteration.
 
+These K=3/4 numbers use **relaxed** steps. Plain cyclic alternation
+(full-strength steps) does not extend: the per-order, per-checkpoint and
+real-face study is in [MULTI_CLASS_EXPERIMENT.md](MULTI_CLASS_EXPERIMENT.md).
+
 ## Other findings
 
 - **Damping the classic iteration is unnecessary** — no oscillation occurs;
@@ -144,7 +148,8 @@ campaign (batches 2/3/8 contain `<ABS_PROJECT_DIR>` placeholders — substitute
 your VM project path). Dedicated evaluators: `league_eval.py` (recipe
 league), `relax_eval.py` / `nosel_eval.py` (relaxation + adaptive stepping),
 `diversity_eval.py`, `confirm_eval.py` (fresh seeds), `pairs_relax_eval.py`
-(any pair via a JSON config), `triple_eval.py` / `quad_eval.py` (scaling),
+(any pair via a JSON config), `triple_eval.py` / `quad_eval.py` (scaling), `multi_class_experiment.py`
+(plain K-way alternation, every order),
 `real_edit_eval.py`, `polish_eval.py`. Trained runs referenced:
 `Male_500_withsamples`, `Smiling_paper500`, `Blond_Hair_500`, `Young_500`,
 `Black_Hair_200`, `Eyeglasses_200`, `Baseline_Male_AND_Smiling` (weights stay
