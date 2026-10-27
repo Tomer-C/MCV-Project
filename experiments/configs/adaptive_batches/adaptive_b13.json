@@ -1,0 +1,5 @@
+[
+  {"name": "train_black_hair",
+   "args": ["train/train_ign.py", "--attr_spec=Black_Hair", "--run_name", "Black_Hair_200",
+            "--num_epochs", "200", "--save_every", "25"]}
+]

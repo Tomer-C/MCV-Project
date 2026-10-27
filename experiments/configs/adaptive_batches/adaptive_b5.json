@@ -1,0 +1,15 @@
+[
+  {"name": "ms_champion_1024_fid",
+   "args": ["experiments/method1_single_ign/run_experiment.py", "--models", "runs/Male_500_withsamples/ckpt_0075.pt", "runs/Smiling_paper500/ckpt_0025.pt",
+            "--names", "f_Male", "f_Smiling", "--intersection_spec", "Male,Smiling",
+            "--noise_stats_spec", "Male,Smiling",
+            "--num_samples", "1024", "--num_iters", "4",
+            "--out_dir", "exp_results/adaptive_b5", "--tag", "ms_champion_1024_fid"]},
+  {"name": "pc_ms_winning_stages",
+   "args": ["experiments/per_network/cross_checkpoint_experiments.py",
+            "--run_a", "runs/Male_500_withsamples", "--run_b", "runs/Smiling_paper500",
+            "--epochs_a", "75,499", "--epochs_b", "25,499",
+            "--epoch_a", "75", "--epoch_b", "25", "--iters", "4",
+            "--classifier", "runs/classifier/classifier.pt",
+            "--out_dir", "exp_results/adaptive_b5/pc_ms_winning_stages"]}
+]

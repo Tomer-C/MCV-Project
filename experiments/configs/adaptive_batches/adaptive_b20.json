@@ -1,0 +1,2 @@
+[{"name": "glasses_ckpt_metrics", "args": ["experiments/per_network/rebuild_loss_curves.py", "--run_dir", "runs/Eyeglasses_200", "--classifier", "runs/classifier/classifier.pt"]},
+ {"name": "glasses_metrics_copy", "args": ["archive/copy_results.py", "runs/Eyeglasses_200/ckpt_metrics.json", "runs/Eyeglasses_200/loss_curves.png", "exp_results/adaptive_b20/glasses_metrics"]}]

@@ -1,0 +1,20 @@
+[
+  {"name": "ms_it4_stats_intersection",
+   "args": ["experiments/method1_single_ign/run_experiment.py", "--models", "runs/Male_500_withsamples/ckpt_0075.pt", "runs/Smiling_paper500/ckpt_0025.pt",
+            "--names", "f_Male", "f_Smiling", "--intersection_spec", "Male,Smiling",
+            "--noise_stats_spec", "Male,Smiling",
+            "--num_samples", "256", "--num_iters", "4", "--skip_fid", "--skip_orders",
+            "--out_dir", "exp_results/adaptive_b4", "--tag", "ms_it4_stats_intersection"]},
+  {"name": "ms_it4_stats_smiling",
+   "args": ["experiments/method1_single_ign/run_experiment.py", "--models", "runs/Male_500_withsamples/ckpt_0075.pt", "runs/Smiling_paper500/ckpt_0025.pt",
+            "--names", "f_Male", "f_Smiling", "--intersection_spec", "Male,Smiling",
+            "--noise_stats_spec", "Smiling",
+            "--num_samples", "256", "--num_iters", "4", "--skip_fid", "--skip_orders",
+            "--out_dir", "exp_results/adaptive_b4", "--tag", "ms_it4_stats_smiling"]},
+  {"name": "ms_it4_stats_all",
+   "args": ["experiments/method1_single_ign/run_experiment.py", "--models", "runs/Male_500_withsamples/ckpt_0075.pt", "runs/Smiling_paper500/ckpt_0025.pt",
+            "--names", "f_Male", "f_Smiling", "--intersection_spec", "Male,Smiling",
+            "--noise_stats_spec", "all",
+            "--num_samples", "256", "--num_iters", "4", "--skip_fid", "--skip_orders",
+            "--out_dir", "exp_results/adaptive_b4", "--tag", "ms_it4_stats_all"]}
+]

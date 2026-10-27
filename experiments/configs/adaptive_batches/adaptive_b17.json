@@ -1,0 +1,3 @@
+[{"name": "real_edit", "args": ["experiments/method2_alternating/real_edit_eval.py"]},
+ {"name": "quad_eval", "args": ["experiments/method2_alternating/quad_eval.py"]},
+ {"name": "reversed_order", "args": ["experiments/method2_alternating/pairs_relax_eval.py", "experiments/configs/reversed_pair_cfg.json"]}]

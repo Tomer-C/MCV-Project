@@ -1,0 +1,43 @@
+# data / training outputs
+data/
+runs/
+# results/ is tracked: curated campaign figures (experiment scripts on the VM write to exp_results/)
+results_*/
+samples/
+smile_results/
+cross_experiments/
+attr_splits/
+bn_check_out/
+*.pt
+*.log
+
+# local copies of reference material and machine snapshots
+IGN-main*/
+MCV-Project-main/
+*.zip
+train_ign_othervm.py
+*_structure.txt
+*_strucuture.txt
+
+# generated figures / screenshots
+*.png
+*.jpg
+
+# VM orchestration (credentials + pulled results)
+vm_config.json
+vm_results/
+exp_results/
+
+# tooling
+__pycache__/
+.idea/
+.vscode/
+
+# VM inventory dumps and papers (local reference only)
+paths.txt
+*.pdf
+
+!results/**
+
+# local copies of commuting-sweep figures pulled from the VM (curated ones go in results/)
+commuting_sweep_results/

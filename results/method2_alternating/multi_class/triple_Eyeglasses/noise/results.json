@@ -1,0 +1,837 @@
+{
+  "config": {
+    "runs_dir": "runs/runs",
+    "data_root": "./data",
+    "classifier": null,
+    "features": [
+      "Male",
+      "Smiling",
+      "Eyeglasses"
+    ],
+    "ckpt": [],
+    "init": "noise",
+    "noise_stats": "Male_500_withsamples/ckpt_0075.pt",
+    "all_orders": false,
+    "num_samples": 512,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "max_iters": 4,
+    "batch_size": 256,
+    "image_size": 64,
+    "out": "exp_results/multi_class/triple_Eyeglasses_noise"
+  },
+  "device": "cpu",
+  "ckpts": {
+    "Male": "Male_500_withsamples/ckpt_0075.pt",
+    "Smiling": "Smiling_paper500/ckpt_0025.pt",
+    "Eyeglasses": "Eyeglasses_200/ckpt_0025.pt"
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "x0": {
+        "Male": 0.859375,
+        "Smiling": 0.083984375,
+        "Eyeglasses": 0.109375,
+        "joint_all": 0.009765625,
+        "Male&Smiling": 0.078125,
+        "Male&Eyeglasses": 0.091796875,
+        "Smiling&Eyeglasses": 0.009765625,
+        "joint_residual": 0.6301795244216919
+      },
+      "single": {
+        "Male": {
+          "Male": 0.998046875,
+          "Smiling": 0.525390625,
+          "Eyeglasses": 0.05859375,
+          "joint_all": 0.02734375,
+          "Male&Smiling": 0.525390625,
+          "Male&Eyeglasses": 0.05859375,
+          "Smiling&Eyeglasses": 0.02734375,
+          "joint_residual": 0.15385942161083221
+        },
+        "Smiling": {
+          "Male": 0.42578125,
+          "Smiling": 0.912109375,
+          "Eyeglasses": 0.00390625,
+          "joint_all": 0.00390625,
+          "Male&Smiling": 0.390625,
+          "Male&Eyeglasses": 0.00390625,
+          "Smiling&Eyeglasses": 0.00390625,
+          "joint_residual": 0.14817072451114655
+        },
+        "Eyeglasses": {
+          "Male": 0.98828125,
+          "Smiling": 0.1171875,
+          "Eyeglasses": 0.6015625,
+          "joint_all": 0.07421875,
+          "Male&Smiling": 0.115234375,
+          "Male&Eyeglasses": 0.591796875,
+          "Smiling&Eyeglasses": 0.076171875,
+          "joint_residual": 0.14686930179595947
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.994140625,
+          "Smiling": 0.08203125,
+          "Eyeglasses": 0.58984375,
+          "joint_all": 0.064453125,
+          "Male&Smiling": 0.08203125,
+          "Male&Eyeglasses": 0.5859375,
+          "Smiling&Eyeglasses": 0.064453125,
+          "joint_residual": 0.14376585185527802
+        },
+        {
+          "Male": 0.994140625,
+          "Smiling": 0.076171875,
+          "Eyeglasses": 0.568359375,
+          "joint_all": 0.0390625,
+          "Male&Smiling": 0.076171875,
+          "Male&Eyeglasses": 0.564453125,
+          "Smiling&Eyeglasses": 0.0390625,
+          "joint_residual": 0.11951339244842529
+        },
+        {
+          "Male": 0.984375,
+          "Smiling": 0.09765625,
+          "Eyeglasses": 0.455078125,
+          "joint_all": 0.041015625,
+          "Male&Smiling": 0.09765625,
+          "Male&Eyeglasses": 0.44921875,
+          "Smiling&Eyeglasses": 0.041015625,
+          "joint_residual": 0.10609030723571777
+        },
+        {
+          "Male": 0.96875,
+          "Smiling": 0.1171875,
+          "Eyeglasses": 0.4296875,
+          "joint_all": 0.0546875,
+          "Male&Smiling": 0.115234375,
+          "Male&Eyeglasses": 0.41796875,
+          "Smiling&Eyeglasses": 0.0546875,
+          "joint_residual": 0.09955108910799026
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.806640625,
+          "Smiling": 0.73046875,
+          "Eyeglasses": 0.044921875,
+          "joint_all": 0.03125,
+          "Male&Smiling": 0.607421875,
+          "Male&Eyeglasses": 0.0390625,
+          "Smiling&Eyeglasses": 0.03515625,
+          "joint_residual": 0.14013752341270447
+        },
+        {
+          "Male": 0.8984375,
+          "Smiling": 0.6484375,
+          "Eyeglasses": 0.0390625,
+          "joint_all": 0.021484375,
+          "Male&Smiling": 0.58984375,
+          "Male&Eyeglasses": 0.03515625,
+          "Smiling&Eyeglasses": 0.0234375,
+          "joint_residual": 0.14974600076675415
+        },
+        {
+          "Male": 0.90234375,
+          "Smiling": 0.65625,
+          "Eyeglasses": 0.052734375,
+          "joint_all": 0.03125,
+          "Male&Smiling": 0.6015625,
+          "Male&Eyeglasses": 0.044921875,
+          "Smiling&Eyeglasses": 0.03515625,
+          "joint_residual": 0.16110888123512268
+        },
+        {
+          "Male": 0.884765625,
+          "Smiling": 0.697265625,
+          "Eyeglasses": 0.05859375,
+          "joint_all": 0.037109375,
+          "Male&Smiling": 0.626953125,
+          "Male&Eyeglasses": 0.0546875,
+          "Smiling&Eyeglasses": 0.037109375,
+          "joint_residual": 0.16850696504116058
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "x0": {
+        "Male": 0.830078125,
+        "Smiling": 0.0859375,
+        "Eyeglasses": 0.09375,
+        "joint_all": 0.00390625,
+        "Male&Smiling": 0.060546875,
+        "Male&Eyeglasses": 0.0859375,
+        "Smiling&Eyeglasses": 0.00390625,
+        "joint_residual": 0.6212229132652283
+      },
+      "single": {
+        "Male": {
+          "Male": 0.994140625,
+          "Smiling": 0.47265625,
+          "Eyeglasses": 0.0546875,
+          "joint_all": 0.01953125,
+          "Male&Smiling": 0.46875,
+          "Male&Eyeglasses": 0.0546875,
+          "Smiling&Eyeglasses": 0.01953125,
+          "joint_residual": 0.15439742803573608
+        },
+        "Smiling": {
+          "Male": 0.37890625,
+          "Smiling": 0.90625,
+          "Eyeglasses": 0.0,
+          "joint_all": 0.0,
+          "Male&Smiling": 0.3515625,
+          "Male&Eyeglasses": 0.0,
+          "Smiling&Eyeglasses": 0.0,
+          "joint_residual": 0.1514064073562622
+        },
+        "Eyeglasses": {
+          "Male": 0.98828125,
+          "Smiling": 0.09765625,
+          "Eyeglasses": 0.642578125,
+          "joint_all": 0.05078125,
+          "Male&Smiling": 0.09765625,
+          "Male&Eyeglasses": 0.6328125,
+          "Smiling&Eyeglasses": 0.05078125,
+          "joint_residual": 0.14448624849319458
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.9921875,
+          "Smiling": 0.06640625,
+          "Eyeglasses": 0.5546875,
+          "joint_all": 0.056640625,
+          "Male&Smiling": 0.06640625,
+          "Male&Eyeglasses": 0.546875,
+          "Smiling&Eyeglasses": 0.056640625,
+          "joint_residual": 0.14341022074222565
+        },
+        {
+          "Male": 0.986328125,
+          "Smiling": 0.078125,
+          "Eyeglasses": 0.53515625,
+          "joint_all": 0.05078125,
+          "Male&Smiling": 0.076171875,
+          "Male&Eyeglasses": 0.529296875,
+          "Smiling&Eyeglasses": 0.052734375,
+          "joint_residual": 0.11948785930871964
+        },
+        {
+          "Male": 0.978515625,
+          "Smiling": 0.1171875,
+          "Eyeglasses": 0.44921875,
+          "joint_all": 0.046875,
+          "Male&Smiling": 0.111328125,
+          "Male&Eyeglasses": 0.443359375,
+          "Smiling&Eyeglasses": 0.046875,
+          "joint_residual": 0.10637278854846954
+        },
+        {
+          "Male": 0.978515625,
+          "Smiling": 0.123046875,
+          "Eyeglasses": 0.40234375,
+          "joint_all": 0.04296875,
+          "Male&Smiling": 0.115234375,
+          "Male&Eyeglasses": 0.396484375,
+          "Smiling&Eyeglasses": 0.04296875,
+          "joint_residual": 0.10007263720035553
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.78515625,
+          "Smiling": 0.7109375,
+          "Eyeglasses": 0.037109375,
+          "joint_all": 0.017578125,
+          "Male&Smiling": 0.57421875,
+          "Male&Eyeglasses": 0.025390625,
+          "Smiling&Eyeglasses": 0.025390625,
+          "joint_residual": 0.14023961126804352
+        },
+        {
+          "Male": 0.86328125,
+          "Smiling": 0.591796875,
+          "Eyeglasses": 0.046875,
+          "joint_all": 0.02734375,
+          "Male&Smiling": 0.51953125,
+          "Male&Eyeglasses": 0.037109375,
+          "Smiling&Eyeglasses": 0.03125,
+          "joint_residual": 0.1489345133304596
+        },
+        {
+          "Male": 0.884765625,
+          "Smiling": 0.640625,
+          "Eyeglasses": 0.046875,
+          "joint_all": 0.03125,
+          "Male&Smiling": 0.591796875,
+          "Male&Eyeglasses": 0.04296875,
+          "Smiling&Eyeglasses": 0.03125,
+          "joint_residual": 0.15976440906524658
+        },
+        {
+          "Male": 0.87890625,
+          "Smiling": 0.6796875,
+          "Eyeglasses": 0.04296875,
+          "joint_all": 0.02734375,
+          "Male&Smiling": 0.619140625,
+          "Male&Eyeglasses": 0.0390625,
+          "Smiling&Eyeglasses": 0.029296875,
+          "joint_residual": 0.166830375790596
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "x0": {
+        "Male": 0.853515625,
+        "Smiling": 0.0625,
+        "Eyeglasses": 0.11328125,
+        "joint_all": 0.00390625,
+        "Male&Smiling": 0.04296875,
+        "Male&Eyeglasses": 0.1015625,
+        "Smiling&Eyeglasses": 0.005859375,
+        "joint_residual": 0.6281560659408569
+      },
+      "single": {
+        "Male": {
+          "Male": 0.998046875,
+          "Smiling": 0.48046875,
+          "Eyeglasses": 0.060546875,
+          "joint_all": 0.03125,
+          "Male&Smiling": 0.48046875,
+          "Male&Eyeglasses": 0.060546875,
+          "Smiling&Eyeglasses": 0.03125,
+          "joint_residual": 0.15332470834255219
+        },
+        "Smiling": {
+          "Male": 0.435546875,
+          "Smiling": 0.916015625,
+          "Eyeglasses": 0.001953125,
+          "joint_all": 0.001953125,
+          "Male&Smiling": 0.404296875,
+          "Male&Eyeglasses": 0.001953125,
+          "Smiling&Eyeglasses": 0.001953125,
+          "joint_residual": 0.14973463118076324
+        },
+        "Eyeglasses": {
+          "Male": 0.970703125,
+          "Smiling": 0.115234375,
+          "Eyeglasses": 0.625,
+          "joint_all": 0.064453125,
+          "Male&Smiling": 0.11328125,
+          "Male&Eyeglasses": 0.603515625,
+          "Smiling&Eyeglasses": 0.06640625,
+          "joint_residual": 0.1463434398174286
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.99609375,
+          "Smiling": 0.0625,
+          "Eyeglasses": 0.548828125,
+          "joint_all": 0.041015625,
+          "Male&Smiling": 0.0625,
+          "Male&Eyeglasses": 0.546875,
+          "Smiling&Eyeglasses": 0.041015625,
+          "joint_residual": 0.14465054869651794
+        },
+        {
+          "Male": 0.984375,
+          "Smiling": 0.080078125,
+          "Eyeglasses": 0.505859375,
+          "joint_all": 0.037109375,
+          "Male&Smiling": 0.080078125,
+          "Male&Eyeglasses": 0.5,
+          "Smiling&Eyeglasses": 0.037109375,
+          "joint_residual": 0.11952218413352966
+        },
+        {
+          "Male": 0.96875,
+          "Smiling": 0.1015625,
+          "Eyeglasses": 0.435546875,
+          "joint_all": 0.037109375,
+          "Male&Smiling": 0.099609375,
+          "Male&Eyeglasses": 0.42578125,
+          "Smiling&Eyeglasses": 0.037109375,
+          "joint_residual": 0.10635815560817719
+        },
+        {
+          "Male": 0.96484375,
+          "Smiling": 0.119140625,
+          "Eyeglasses": 0.41015625,
+          "joint_all": 0.041015625,
+          "Male&Smiling": 0.115234375,
+          "Male&Eyeglasses": 0.400390625,
+          "Smiling&Eyeglasses": 0.041015625,
+          "joint_residual": 0.10014975070953369
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.810546875,
+          "Smiling": 0.7265625,
+          "Eyeglasses": 0.033203125,
+          "joint_all": 0.01953125,
+          "Male&Smiling": 0.591796875,
+          "Male&Eyeglasses": 0.02734375,
+          "Smiling&Eyeglasses": 0.025390625,
+          "joint_residual": 0.13933590054512024
+        },
+        {
+          "Male": 0.865234375,
+          "Smiling": 0.63671875,
+          "Eyeglasses": 0.05859375,
+          "joint_all": 0.037109375,
+          "Male&Smiling": 0.5546875,
+          "Male&Eyeglasses": 0.052734375,
+          "Smiling&Eyeglasses": 0.04296875,
+          "joint_residual": 0.14844468235969543
+        },
+        {
+          "Male": 0.8828125,
+          "Smiling": 0.68359375,
+          "Eyeglasses": 0.052734375,
+          "joint_all": 0.037109375,
+          "Male&Smiling": 0.615234375,
+          "Male&Eyeglasses": 0.05078125,
+          "Smiling&Eyeglasses": 0.037109375,
+          "joint_residual": 0.15994903445243835
+        },
+        {
+          "Male": 0.86328125,
+          "Smiling": 0.716796875,
+          "Eyeglasses": 0.0390625,
+          "joint_all": 0.033203125,
+          "Male&Smiling": 0.630859375,
+          "Male&Eyeglasses": 0.037109375,
+          "Smiling&Eyeglasses": 0.033203125,
+          "joint_residual": 0.16735950112342834
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "x0": {
+      "Male": {
+        "mean": 0.84765625,
+        "std": 0.012657696676577852
+      },
+      "Smiling": {
+        "mean": 0.07747395833333333,
+        "std": 0.010618168248893289
+      },
+      "Eyeglasses": {
+        "mean": 0.10546875,
+        "std": 0.008438464451051902
+      },
+      "joint_all": {
+        "mean": 0.005859375,
+        "std": 0.0027621358640099515
+      },
+      "Male&Smiling": {
+        "mean": 0.060546875,
+        "std": 0.014352478961620185
+      },
+      "Male&Eyeglasses": {
+        "mean": 0.09309895833333333,
+        "std": 0.006444983682689887
+      },
+      "Smiling&Eyeglasses": {
+        "mean": 0.006510416666666667,
+        "std": 0.0024359748611809512
+      },
+      "joint_residual": {
+        "mean": 0.626519501209259,
+        "std": 0.003835273040480494
+      }
+    },
+    "single": {
+      "Male": {
+        "Male": {
+          "mean": 0.9967447916666666,
+          "std": 0.0018414239093399675
+        },
+        "Smiling": {
+          "mean": 0.4928385416666667,
+          "std": 0.023237719137467118
+        },
+        "Eyeglasses": {
+          "mean": 0.057942708333333336,
+          "std": 0.0024359748611809512
+        },
+        "joint_all": {
+          "mean": 0.026041666666666668,
+          "std": 0.0048719497223619025
+        },
+        "Male&Smiling": {
+          "mean": 0.4915364583333333,
+          "std": 0.02441189226465192
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.057942708333333336,
+          "std": 0.0024359748611809512
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.026041666666666668,
+          "std": 0.0048719497223619025
+        },
+        "joint_residual": {
+          "mean": 0.15386051932970682,
+          "std": 0.00043793666876706065
+        }
+      },
+      "Smiling": {
+        "Male": {
+          "mean": 0.4134114583333333,
+          "std": 0.02472244472141605
+        },
+        "Smiling": {
+          "mean": 0.9114583333333334,
+          "std": 0.004013290366516261
+        },
+        "Eyeglasses": {
+          "mean": 0.001953125,
+          "std": 0.001594719884624465
+        },
+        "joint_all": {
+          "mean": 0.001953125,
+          "std": 0.001594719884624465
+        },
+        "Male&Smiling": {
+          "mean": 0.3821614583333333,
+          "std": 0.022345055080378273
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.001953125,
+          "std": 0.001594719884624465
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.001953125,
+          "std": 0.001594719884624465
+        },
+        "joint_residual": {
+          "mean": 0.149770587682724,
+          "std": 0.0013212066507726655
+        }
+      },
+      "Eyeglasses": {
+        "Male": {
+          "mean": 0.982421875,
+          "std": 0.008286407592029853
+        },
+        "Smiling": {
+          "mean": 0.11002604166666667,
+          "std": 0.008783032267729194
+        },
+        "Eyeglasses": {
+          "mean": 0.623046875,
+          "std": 0.01680141653719263
+        },
+        "joint_all": {
+          "mean": 0.06315104166666667,
+          "std": 0.009612515013172788
+        },
+        "Male&Smiling": {
+          "mean": 0.10872395833333333,
+          "std": 0.007866566389058968
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.609375,
+          "std": 0.017249532942046578
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.064453125,
+          "std": 0.010457277606906908
+        },
+        "joint_residual": {
+          "mean": 0.14589966336886087,
+          "std": 0.0010222324957928086
+        }
+      }
+    },
+    "multi": [
+      {
+        "Male": {
+          "mean": 0.994140625,
+          "std": 0.001594719884624465
+        },
+        "Smiling": {
+          "mean": 0.0703125,
+          "std": 0.008438464451051902
+        },
+        "Eyeglasses": {
+          "mean": 0.564453125,
+          "std": 0.018112536124015047
+        },
+        "joint_all": {
+          "mean": 0.054036458333333336,
+          "std": 0.009743899444723805
+        },
+        "Male&Smiling": {
+          "mean": 0.0703125,
+          "std": 0.008438464451051902
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.5598958333333334,
+          "std": 0.018414239093399672
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.054036458333333336,
+          "std": 0.009743899444723805
+        },
+        "joint_residual": {
+          "mean": 0.1439422070980072,
+          "std": 0.000521490963346622
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.98828125,
+          "std": 0.004219232225525951
+        },
+        "Smiling": {
+          "mean": 0.078125,
+          "std": 0.001594719884624465
+        },
+        "Eyeglasses": {
+          "mean": 0.5364583333333334,
+          "std": 0.0255321244155307
+        },
+        "joint_all": {
+          "mean": 0.042317708333333336,
+          "std": 0.006037512041338349
+        },
+        "Male&Smiling": {
+          "mean": 0.07747395833333333,
+          "std": 0.0018414239093399675
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.53125,
+          "std": 0.02634909680318758
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.04296875,
+          "std": 0.006951222820332885
+        },
+        "joint_residual": {
+          "mean": 0.1195078119635582,
+          "std": 1.455803920115835e-05
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.9772135416666666,
+          "std": 0.006444983682689887
+        },
+        "Smiling": {
+          "mean": 0.10546875,
+          "std": 0.008438464451051902
+        },
+        "Eyeglasses": {
+          "mean": 0.4466145833333333,
+          "std": 0.008183466855453472
+        },
+        "joint_all": {
+          "mean": 0.041666666666666664,
+          "std": 0.004013290366516261
+        },
+        "Male&Smiling": {
+          "mean": 0.10286458333333333,
+          "std": 0.0060375120413383495
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.439453125,
+          "std": 0.009959022487485907
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.041666666666666664,
+          "std": 0.004013290366516261
+        },
+        "joint_residual": {
+          "mean": 0.1062737504641215,
+          "std": 0.00012985143888507474
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.970703125,
+          "std": 0.005749844314015525
+        },
+        "Smiling": {
+          "mean": 0.11979166666666667,
+          "std": 0.0024359748611809512
+        },
+        "Eyeglasses": {
+          "mean": 0.4140625,
+          "std": 0.01149968862803105
+        },
+        "joint_all": {
+          "mean": 0.046223958333333336,
+          "std": 0.006037512041338349
+        },
+        "Male&Smiling": {
+          "mean": 0.115234375,
+          "std": 0.0
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.4049479166666667,
+          "std": 0.009344205790629768
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.046223958333333336,
+          "std": 0.006037512041338349
+        },
+        "joint_residual": {
+          "mean": 0.09992449233929317,
+          "std": 0.00026590612777823965
+        }
+      }
+    ],
+    "pair": [
+      {
+        "Male": {
+          "mean": 0.80078125,
+          "std": 0.011163039192371254
+        },
+        "Smiling": {
+          "mean": 0.72265625,
+          "std": 0.008438464451051902
+        },
+        "Eyeglasses": {
+          "mean": 0.038411458333333336,
+          "std": 0.0048719497223619025
+        },
+        "joint_all": {
+          "mean": 0.022786458333333332,
+          "std": 0.006037512041338349
+        },
+        "Male&Smiling": {
+          "mean": 0.5911458333333334,
+          "std": 0.013562934020833112
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.030598958333333332,
+          "std": 0.006037512041338349
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.028645833333333332,
+          "std": 0.004603559773349918
+        },
+        "joint_residual": {
+          "mean": 0.1399043450752894,
+          "std": 0.000404105902341921
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8756510416666666,
+          "std": 0.016132176684067533
+        },
+        "Smiling": {
+          "mean": 0.6256510416666666,
+          "std": 0.02441189226465192
+        },
+        "Eyeglasses": {
+          "mean": 0.048177083333333336,
+          "std": 0.008026580733032522
+        },
+        "joint_all": {
+          "mean": 0.028645833333333332,
+          "std": 0.006444983682689886
+        },
+        "Male&Smiling": {
+          "mean": 0.5546875,
+          "std": 0.02870495792324037
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.041666666666666664,
+          "std": 0.007866566389058966
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.032552083333333336,
+          "std": 0.008026580733032522
+        },
+        "joint_residual": {
+          "mean": 0.14904173215230307,
+          "std": 0.0005366434607543348
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8899739583333334,
+          "std": 0.008783032267729194
+        },
+        "Smiling": {
+          "mean": 0.66015625,
+          "std": 0.017758049084617
+        },
+        "Eyeglasses": {
+          "mean": 0.05078125,
+          "std": 0.0027621358640099515
+        },
+        "joint_all": {
+          "mean": 0.033203125,
+          "std": 0.0027621358640099515
+        },
+        "Male&Smiling": {
+          "mean": 0.6028645833333334,
+          "std": 0.009612515013172788
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.046223958333333336,
+          "std": 0.0033196741624953027
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.034505208333333336,
+          "std": 0.0024359748611809512
+        },
+        "joint_residual": {
+          "mean": 0.16027410825093588,
+          "std": 0.0005950664303224415
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8756510416666666,
+          "std": 0.009067961117958412
+        },
+        "Smiling": {
+          "mean": 0.6979166666666666,
+          "std": 0.015156831675550542
+        },
+        "Eyeglasses": {
+          "mean": 0.046875,
+          "std": 0.008438464451051902
+        },
+        "joint_all": {
+          "mean": 0.032552083333333336,
+          "std": 0.004013290366516261
+        },
+        "Male&Smiling": {
+          "mean": 0.6256510416666666,
+          "std": 0.0048719497223619025
+        },
+        "Male&Eyeglasses": {
+          "mean": 0.043619791666666664,
+          "std": 0.007866566389058966
+        },
+        "Smiling&Eyeglasses": {
+          "mean": 0.033203125,
+          "std": 0.00318943976924893
+        },
+        "joint_residual": {
+          "mean": 0.16756561398506165,
+          "std": 0.0006998093847971137
+        }
+      }
+    ]
+  }
+}

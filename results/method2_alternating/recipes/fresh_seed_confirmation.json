@@ -1,0 +1,56 @@
+{
+  "seed1": {
+    "relaxed_a03": {
+      "joint": 0.5478515625,
+      "fid": 50.89277873040356,
+      "diversity_rel_real": 0.9709124260304073
+    },
+    "baseline": {
+      "joint": 0.912109375,
+      "fid": 50.87853988140037,
+      "diversity_rel_real": 0.9467997171507662
+    },
+    "sel_relaxed_a03": {
+      "joint": 1.0,
+      "fid": 46.914163565011535,
+      "diversity_rel_real": 0.9146640448288526,
+      "yield": 0.5400390625
+    }
+  },
+  "seed2": {
+    "relaxed_a03": {
+      "joint": 0.54296875,
+      "fid": 52.14939687877788,
+      "diversity_rel_real": 0.963066468710458
+    },
+    "baseline": {
+      "joint": 0.908203125,
+      "fid": 52.13829695728978,
+      "diversity_rel_real": 0.9466846345266278
+    },
+    "sel_relaxed_a03": {
+      "joint": 1.0,
+      "fid": 46.74168230175701,
+      "diversity_rel_real": 0.9213638372833812,
+      "yield": 0.552734375
+    }
+  },
+  "seed3": {
+    "relaxed_a03": {
+      "joint": 0.568359375,
+      "fid": 53.46182341531102,
+      "diversity_rel_real": 0.9680680644872846
+    },
+    "baseline": {
+      "joint": 0.9189453125,
+      "fid": 51.97762990299415,
+      "diversity_rel_real": 0.9405212542517724
+    },
+    "sel_relaxed_a03": {
+      "joint": 1.0,
+      "fid": 49.49815212155542,
+      "diversity_rel_real": 0.9306137326843302,
+      "yield": 0.57666015625
+    }
+  }
+}

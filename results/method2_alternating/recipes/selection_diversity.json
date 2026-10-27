@@ -1,0 +1,30 @@
+{
+  "yields": {
+    "sel_m1": 0.53955078125,
+    "sel_c1": 0.60205078125
+  },
+  "diversity_real_abs": 14.018293130485732,
+  "real": {
+    "diversity_rel_real": 1.0
+  },
+  "baseline": {
+    "diversity_rel_real": 0.9578576381704188,
+    "joint": 0.9169921875,
+    "fid": 51.02947806525964
+  },
+  "m1": {
+    "diversity_rel_real": 0.9816291344762079,
+    "joint": 0.552734375,
+    "fid": 47.35386382736593
+  },
+  "sel_m1": {
+    "diversity_rel_real": 0.955232983822466,
+    "joint": 1.0,
+    "fid": 44.417097666618446
+  },
+  "sel_c1": {
+    "diversity_rel_real": 0.91297115333599,
+    "joint": 1.0,
+    "fid": 73.271788222965
+  }
+}

@@ -1,0 +1,1 @@
+[{"name": "black_pairs", "args": ["experiments/method2_alternating/pairs_relax_eval.py", "experiments/configs/black_pairs_cfg.json"]}]

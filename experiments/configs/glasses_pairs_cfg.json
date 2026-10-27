@@ -1,0 +1,5 @@
+{
+  "ckpts": {"Eyeglasses": "runs/Eyeglasses_200/ckpt_0025.pt"},
+  "pairs": [["Smiling", "Eyeglasses"], ["Male", "Eyeglasses"]],
+  "out": "exp_results/adaptive_b21/glasses_pairs"
+}

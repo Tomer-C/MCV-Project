@@ -1,0 +1,5 @@
+{
+  "ckpts": {"Black_Hair": "runs/Black_Hair_200/ckpt_0150.pt"},
+  "pairs": [["Male", "Black_Hair"], ["Smiling", "Black_Hair"]],
+  "out": "exp_results/adaptive_b15/black_pairs"
+}
