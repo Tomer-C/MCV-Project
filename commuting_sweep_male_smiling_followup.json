@@ -1,0 +1,45 @@
+{
+  "ckpt_a": "runs/Male_500_withsamples/ckpt_0075.pt",
+  "ckpt_b": "runs/Smiling_paper500/ckpt_0075.pt",
+  "baseline": "runs/Baseline_Male_AND_Smiling/ckpt_last.pt",
+  "intersection_spec": "Male,Smiling",
+  "eval_out": "exp_results/commuting_sweep/male_smiling",
+  "common_args": [
+    "--num_epochs",
+    "50",
+    "--save_every",
+    "5",
+    "--num_workers",
+    "6",
+    "--sample_every",
+    "5",
+    "--log_every",
+    "100"
+  ],
+  "runs": [
+    {
+      "name": "ms_l1_lam0_lr2e-5",
+      "args": [
+        "--lambda_commute",
+        "0",
+        "--lr",
+        "2e-5"
+      ]
+    },
+    {
+      "name": "ms_l1_lam5_lr2e-5_s1_fine",
+      "args": [
+        "--lambda_commute",
+        "5",
+        "--lr",
+        "2e-5",
+        "--seed",
+        "1",
+        "--num_epochs",
+        "15",
+        "--save_every",
+        "1"
+      ]
+    }
+  ]
+}
