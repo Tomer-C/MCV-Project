@@ -141,7 +141,7 @@ All `K!` orders are evaluated automatically (6 for K=3).
 | Is `x*` in the intersection? | `metrics.attr_rates` | `attr_rates.alternating.joint` |
 | Does `x*` match `f_A∩B(x_0)`? (Phase 4) | `metrics.paired_distances` | `paired_vs_baseline` (L2/PSNR/SSIM/LPIPS) |
 | Are outputs realistic? | `metrics.frechet_distance` | `distribution.*.fid` |
-| Does order matter? | `alternating.run_all_orders` | `orders`, `order_disagreement` |
+| Does order matter? | `alternating.run_all_orders`; dedicated study: `order_experiment.py` | `orders`, `order_disagreement`; [ORDER_EXPERIMENT.md](ORDER_EXPERIMENT.md) |
 | Enough data for the baseline? (challenge 1) | `scripts/inspect_attributes.py` | intersection counts before training |
 
 ### Reading the diagnostics
