@@ -110,6 +110,12 @@ statistics.
 Graceful yield decay for compatible sets; one adversarial member kills the
 whole iteration.
 
+These K=3/4 numbers use **relaxed** steps. Plain cyclic alternation
+(full-strength steps) does not extend: the per-order, per-checkpoint and
+real-face study is `experiments/method2_alternating/multi_class_experiment.py`,
+with results in [`results/method2_alternating/multi_class/`](../results/method2_alternating/multi_class/)
+(write-up to follow).
+
 ## Other findings
 
 - **Damping the classic iteration is unnecessary** — no oscillation occurs;
@@ -145,6 +151,7 @@ your VM project path). Dedicated evaluators: `experiments/method2_alternating/le
 league), `experiments/method2_alternating/relax_eval.py` / `experiments/method2_alternating/nosel_eval.py` (relaxation + adaptive stepping),
 `experiments/method2_alternating/diversity_eval.py`, `experiments/method2_alternating/confirm_eval.py` (fresh seeds), `experiments/method2_alternating/pairs_relax_eval.py`
 (any pair via a JSON config), `experiments/method2_alternating/triple_eval.py` / `experiments/method2_alternating/quad_eval.py` (scaling),
+`experiments/method2_alternating/multi_class_experiment.py` (plain K-way alternation, every order),
 `experiments/method2_alternating/real_edit_eval.py`, `experiments/per_network/polish_eval.py`. Trained runs referenced:
 `Male_500_withsamples`, `Smiling_paper500`, `Blond_Hair_500`, `Young_500`,
 `Black_Hair_200`, `Eyeglasses_200`, `Baseline_Male_AND_Smiling` (weights stay

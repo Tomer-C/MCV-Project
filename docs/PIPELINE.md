@@ -58,6 +58,12 @@ python -m experiments.method1_single_ign.run_experiment \
 
 All `K!` orders are evaluated automatically (6 for K=3).
 
+`experiments/method2_alternating/multi_class_experiment.py` is the dedicated
+K ≥ 2 study: plain cyclic alternation vs each single net and vs the 2-way
+alternation, from noise or from CelebA test faces, with every order
+(`--all_orders`) and swappable checkpoints. Results are in
+[`results/method2_alternating/multi_class/`](../results/method2_alternating/multi_class/).
+
 ## How each proposal question is answered
 
 | Proposal question | Where | Output |
@@ -69,6 +75,7 @@ All `K!` orders are evaluated automatically (6 for K=3).
 | Does `x*` match `f_A∩B(x_0)`? (Phase 4) | `metrics.paired_distances` | `paired_vs_baseline` (L2/PSNR/SSIM/LPIPS) |
 | Are outputs realistic? | `metrics.frechet_distance` | `distribution.*.fid` |
 | Does order matter? | `alternating.run_all_orders`; dedicated study: `experiments/method2_alternating/order_experiment.py` | `orders`, `order_disagreement`; [method2_order.md](method2_order.md) |
+| Does it extend past two classes? | dedicated study: `experiments/method2_alternating/multi_class_experiment.py` | all-K / pairwise joint rates, joint fixed-point residual; [`results/method2_alternating/multi_class/`](../results/method2_alternating/multi_class/) |
 | Enough data for the baseline? (challenge 1) | `scripts/inspect_attributes.py` | intersection counts before training |
 
 ### Reading the diagnostics

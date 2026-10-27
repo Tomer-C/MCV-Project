@@ -41,7 +41,9 @@ f_Male∩Smiling baseline.*
     ([method2_order.md](docs/method2_order.md)).
   - **Feature compatibility decides success.** Anti-correlated pairs
     (Male + Blond) fail under every method; compatible triples and quads
-    scale gracefully.
+    scale gracefully with relaxed steps, while plain cyclic alternation does
+    not extend past two classes
+    ([multi-class results](results/method2_alternating/multi_class/)).
 - **Method 3.** The commute loss does make the networks commute, but mostly
   by mapping inputs onto one shared face. A very short, low-lr fine-tune
   (1–5 epochs, λ = 5, lr = 2e-5) gives a small in-distribution gain (about
@@ -60,7 +62,8 @@ ign/                        shared library
 train/                      train_ign.py, train_classifier.py, train_commuting_pair.py
 experiments/
   method1_single_ign/       run_experiment.py (alternation vs baseline), make_figures.py
-  method2_alternating/      iterations.py, order study, relaxation / league / scaling evaluators
+  method2_alternating/      iterations.py, order study, multi-class study,
+                            relaxation / league / scaling evaluators
   method3_commuting/        commuting-loss sweep runner, evaluator, figures
   per_network/              single-network analysis (checkpoint curves, negatives, polish)
   configs/                  experiment configs and the campaign's batch files
