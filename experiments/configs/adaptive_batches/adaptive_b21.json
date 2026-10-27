@@ -1,0 +1,1 @@
+[{"name": "glasses_pairs", "args": ["experiments/method2_alternating/pairs_relax_eval.py", "experiments/configs/glasses_pairs_cfg.json"]}]

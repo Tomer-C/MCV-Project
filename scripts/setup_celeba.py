@@ -136,7 +136,7 @@ def main():
                 f.write(f"{fn} 1\n")
         print(f"[identity] synthesised placeholder identity_CelebA.txt ({len(filenames)} rows)")
 
-    print("\nDone. Now the loader must skip torchvision's md5 gate -- apply the ign_data.py")
+    print("\nDone. Now the loader must skip torchvision's md5 gate -- apply the ign/data.py")
     print("patch (see instructions) or your first run will try to re-download from Drive.")
 
 

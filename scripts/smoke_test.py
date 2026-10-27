@@ -13,11 +13,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import torch
 
-from alternating import (alternating_projection, damped_alternating_projection,
+from ign.alternating import (alternating_projection, damped_alternating_projection,
                          joint_fixed_point_residual, order_disagreement, run_all_orders)
-from ign_data import CELEBA_ATTRS, parse_attr_spec, spec_to_slug
-from ign_models import AttributeClassifier, DCGANEnhanced
-from metrics import (FeatureExtractor, attr_rates, frechet_distance,
+from ign.data import CELEBA_ATTRS, parse_attr_spec, spec_to_slug
+from ign.models import AttributeClassifier, DCGANEnhanced
+from ign.metrics import (FeatureExtractor, attr_rates, frechet_distance,
                      kernel_distance, paired_distances)
 
 DEV = torch.device("cpu")
@@ -54,7 +54,7 @@ def main():
     print(f"{OK} (out {tuple(y.shape)}, bottleneck {tuple(b.shape)})")
 
     check("training step (loss wiring + backward)")
-    from ign_utils import LossManager
+    from ign.utils import LossManager
 
     class A:  # minimal args stand-in
         in_manifold_loss_factor = 1.0

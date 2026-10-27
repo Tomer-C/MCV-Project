@@ -17,7 +17,7 @@ import os
 import pyarrow.parquet as pq
 from PIL import Image
 
-from ign_data import CELEBA_ATTRS
+from ign.data import CELEBA_ATTRS
 
 SPLIT_ID = {"train": 0, "valid": 1, "test": 2}
 

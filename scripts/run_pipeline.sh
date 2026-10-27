@@ -43,22 +43,22 @@ echo -e "\n### Step 0: attribute counts (feasibility check)"
 python scripts/inspect_attributes.py --data_root "$DATA_ROOT" --specs "$ATTR_A" "$ATTR_B"
 
 echo -e "\n### Step 1a: train f_A on '$ATTR_A'"
-$LAUNCH train_ign.py $DDP_FLAG --attr_spec "$ATTR_A" --run_name "$SLUG_A" \
+$LAUNCH -m train.train_ign $DDP_FLAG --attr_spec "$ATTR_A" --run_name "$SLUG_A" \
     --num_epochs "$EPOCHS" --batch_size "$BATCH" --data_root "$DATA_ROOT" --ema
 
 echo -e "\n### Step 1b: train f_B on '$ATTR_B'"
-$LAUNCH train_ign.py $DDP_FLAG --attr_spec "$ATTR_B" --run_name "$SLUG_B" \
+$LAUNCH -m train.train_ign $DDP_FLAG --attr_spec "$ATTR_B" --run_name "$SLUG_B" \
     --num_epochs "$EPOCHS" --batch_size "$BATCH" --data_root "$DATA_ROOT" --ema
 
 echo -e "\n### Step 3: train the baseline f_AnB on '$INTERSECTION'"
-$LAUNCH train_ign.py $DDP_FLAG --attr_spec "$INTERSECTION" --run_name "$SLUG_AB" \
+$LAUNCH -m train.train_ign $DDP_FLAG --attr_spec "$INTERSECTION" --run_name "$SLUG_AB" \
     --num_epochs "$EPOCHS" --batch_size "$BATCH" --data_root "$DATA_ROOT" --ema
 
 echo -e "\n### Step 3b: train the attribute classifier (evaluation instrument)"
-python train_classifier.py --data_root "$DATA_ROOT" --epochs "$CLS_EPOCHS"
+python -m train.train_classifier --data_root "$DATA_ROOT" --epochs "$CLS_EPOCHS"
 
 echo -e "\n### Steps 2 & 4: alternating projection + comparison"
-python run_experiment.py \
+python -m experiments.method1_single_ign.run_experiment \
     --models "runs/$SLUG_A/ckpt_last.pt" "runs/$SLUG_B/ckpt_last.pt" \
     --names f_A f_B \
     --baseline "runs/$SLUG_AB/ckpt_last.pt" \
@@ -68,6 +68,6 @@ python run_experiment.py \
     --data_root "$DATA_ROOT" --tag "$SLUG_AB"
 
 echo -e "\n### Figures"
-python make_figures.py --results "results/$SLUG_AB"
+python -m experiments.method1_single_ign.make_figures --results "results/$SLUG_AB"
 
 echo -e "\nDone. See results/$SLUG_AB/"

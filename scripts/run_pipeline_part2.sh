@@ -40,7 +40,7 @@ echo " epochs=$EPOCHS batch=$BATCH nproc=$NPROC"
 echo "=============================================================="
 
 echo -e "\n### Steps 2 & 4: alternating projection + comparison"
-python run_experiment.py \
+python -m experiments.method1_single_ign.run_experiment \
     --models "runs/$SLUG_A/ckpt_last.pt" "runs/$SLUG_B/ckpt_last.pt" \
     --names f_A f_B \
     --baseline "runs/$SLUG_AB/ckpt_last.pt" \
@@ -50,6 +50,6 @@ python run_experiment.py \
     --data_root "$DATA_ROOT" --tag "$SLUG_AB"
 
 echo -e "\n### Figures"
-python make_figures.py --results "results/$SLUG_AB"
+python -m experiments.method1_single_ign.make_figures --results "results/$SLUG_AB"
 
 echo -e "\nDone. See results/$SLUG_AB/"

@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import torch
 
-from ign_data import CELEBA_ATTRS, _load_celeba, get_attr_indices
+from ign.data import CELEBA_ATTRS, _load_celeba, get_attr_indices
 
 # Pairs worth considering: both attributes common, and not mutually exclusive.
 SUGGESTED = [

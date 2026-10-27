@@ -1,235 +1,109 @@
-# IGNs for Projection onto Target-Space Intersections
+# Projection onto Intersections of Target Manifolds with IGNs
 
-Code for the MCV project *"Using IGNs For Projection Onto Target Space
-Intersections Via the Alternating Projection Theorem"*.
+MCV course project. An Idempotent Generative Network (IGN, Shocher et al.,
+ICLR 2024) projects noise onto the manifold of its training data. We ask
+whether IGNs can project onto an **intersection** of such manifolds, A ∩ B,
+using CelebA attributes as the sets (for example A = Male, B = Smiling), and
+compare three ways of doing it.
 
-Trains one Idempotent Generative Network per CelebA attribute, then applies them
-alternately — `x_{n+1} = f_B(f_A(x_n))` — to test whether the iteration lands in
-the intersection of their target sets, and compares that zero-shot result
-against an IGN trained directly on `A ∩ B`.
+Built on the reference implementation of Shocher et al.; the IGN losses are
+preserved exactly (see [docs/PIPELINE.md](docs/PIPELINE.md#relationship-to-upstream-ign-main-and-the-paper)).
 
-Built on the reference implementation in `../IGN-main` (Shocher et al., ICLR
-2024). The IGN losses are preserved exactly; see *Relationship to upstream*.
+## The three methods
 
-## Layout
+| | Idea | Code | Write-up |
+|---|---|---|---|
+| **1. Single IGN** (baseline) | Train one IGN directly on A ∩ B. | [`train/train_ign.py`](train/train_ign.py) with a multi-attribute spec; comparison in [`experiments/method1_single_ign/`](experiments/method1_single_ign/) | [RESULTS.md](docs/RESULTS.md) |
+| **2. Alternating IGNs** | Train f_A and f_B separately, then iterate x ← f_A(f_B(x)), inspired by von Neumann's alternating projections. | [`ign/alternating.py`](ign/alternating.py), [`experiments/method2_alternating/`](experiments/method2_alternating/) | [RESULTS.md](docs/RESULTS.md), [method2_iterations.md](docs/method2_iterations.md), [method2_order.md](docs/method2_order.md) |
+| **3. Commutative IGNs** | Fine-tune f_A and f_B jointly with a loss that makes them commute; commuting idempotents compose to a projection onto Fix(f_A) ∩ Fix(f_B). | [`train/train_commuting_pair.py`](train/train_commuting_pair.py), [`experiments/method3_commuting/`](experiments/method3_commuting/) | [method3_commuting.md](docs/method3_commuting.md) |
 
-| file | role |
-|---|---|
-| `ign_data.py` | CelebA loading + **attribute-subset filtering** (the `A`, `B`, `A∩B` splits) |
-| `ign_models.py` | IGN architecture (DCGAN-style encoder/decoder) + attribute classifier |
-| `ign_utils.py` | loss manager, DDP/device helpers, checkpointing |
-| `train_ign.py` | trains **one** IGN on one attribute spec |
-| `train_classifier.py` | trains the attribute classifier used to judge outputs |
-| `alternating.py` | **the core contribution**: the alternating iteration + convergence diagnostics |
-| `metrics.py` | attribute rates, FID/KID, LPIPS/SSIM/PSNR/L2 |
-| `run_experiment.py` | runs Phases 2 & 4 and writes `results.json` |
-| `make_figures.py` | all report figures from `results.json` |
-| `scripts/inspect_attributes.py` | **run first**: attribute counts & intersection sizes |
-| `scripts/smoke_test.py` | fast correctness checks, no data needed |
-| `scripts/integration_test.py` | full pipeline on synthetic data, no data needed |
-| `scripts/run_pipeline.sh` | end-to-end driver |
+## Results in brief
 
-**New here?** [TRAINING.md](TRAINING.md) walks through training an IGN and
-tuning the hyperparameters. **[RESULTS.md](RESULTS.md) documents the full
-experimental campaign** — curated figures and numbers in [`results/`](results/).
+Headline pair: **Male ∧ Smiling** (CelebA, 64×64).
 
-## Results in one paragraph
+![Noise, alternation and the trained baseline](results/method1_single_ign/alt_vs_baseline_noise.png)
 
-The trained intersection baseline `f_Male∩Smiling` reaches a 0.91 joint
-feature rate at FID 51. Zero-shot pipelines built only from single-feature
-IGNs get to **baseline-level realism**: relaxed alternation (a partial,
-Krasnoselskii–Mann-style projection step) scores 0.55 @ FID 52, per-image
-adaptive stepping 0.67 @ FID 50 with nothing discarded, and
-generate-and-select certifies 100% joint at FID 47 with a 55% sampling
-yield. One alternation cycle is optimal (more only blurs), projector-quality
-checkpoints come from *early* training, and feature-set compatibility — not
-the iteration mechanics — decides success: anti-correlated pairs
-(Male+Blond) fail under every method, compatible triples and quads scale
-gracefully. Full story, laws, and failure modes: [RESULTS.md](RESULTS.md).
+*Rows: starting noise, alternating f_Male and f_Smiling, the trained
+f_Male∩Smiling baseline.*
 
-## Cluster / VM tooling
+- **Method 1.** The trained intersection baseline reaches a 0.91 joint
+  attribute rate at FID 51. It is the strongest method on joint rate, but
+  needs enough A ∩ B training data and a new network per combination.
+- **Method 2.** Zero-shot pipelines built only from single-feature IGNs reach
+  baseline-level realism: relaxed alternation scores 0.55 joint at FID 52,
+  per-image adaptive stepping 0.67 at FID 50, and generate-and-select 100%
+  joint at FID 47 with a 55% yield ([RESULTS.md](docs/RESULTS.md)).
+  - **More cycles do not help.** One or two cycles are best; further
+    alternation mostly blurs, and the iteration settles near, not on, a joint
+    fixed point ([method2_iterations.md](docs/method2_iterations.md)).
+  - **Order matters from noise, not from real faces.** The first network
+    decides the face, so the sharper projector (f_Male) should go first
+    ([method2_order.md](docs/method2_order.md)).
+  - **Feature compatibility decides success.** Anti-correlated pairs
+    (Male + Blond) fail under every method; compatible triples and quads
+    scale gracefully.
+- **Method 3.** The commute loss does make the networks commute, but mostly
+  by mapping inputs onto one shared face. A very short, low-lr fine-tune
+  (1–5 epochs, λ = 5, lr = 2e-5) gives a small in-distribution gain (about
+  +0.05 joint rate); nothing tested approaches the Method 1 baseline
+  ([method3_commuting.md](docs/method3_commuting.md)).
 
-All remote experimentation is scripted — no manual SSH needed:
+## Repository layout
 
-| file | role |
-|---|---|
-| `vm_orchestrate.py` | local driver: `push` / `start` / `status` / `pull` / `watch` / `run` / `stop` over SSH (paramiko); pulls images+reports only, never weights |
-| `vm_experiments.py` | on-VM runner: the standard experiment suite (fastest first) or any ad-hoc `--spec` batch, with a pollable `status.json` |
-| `adaptive_b*.json` | the ad-hoc batches exactly as executed in the campaign |
-| `*_eval.py` | dedicated evaluators (league, relaxation, diversity, scaling, ...) — see RESULTS.md |
-| `vm_config.template.json` | copy to `vm_config.json` (gitignored) and fill in host/user/password |
-| `cluster/` | multi-node torchrun launcher (separate, for DDP training) |
+```
+ign/                        shared library
+  data.py                   CelebA loading + attribute-subset filtering (A, B, A∩B)
+  models.py                 IGN architectures + attribute classifier
+  utils.py                  IGN losses, DDP/device helpers, FFT-matched noise
+  alternating.py            the alternating iteration + convergence diagnostics
+  metrics.py                attribute rates, FID/KID, LPIPS/SSIM/PSNR
+train/                      train_ign.py, train_classifier.py, train_commuting_pair.py
+experiments/
+  method1_single_ign/       run_experiment.py (alternation vs baseline), make_figures.py
+  method2_alternating/      iterations.py, order study, relaxation / league / scaling evaluators
+  method3_commuting/        commuting-loss sweep runner, evaluator, figures
+  per_network/              single-network analysis (checkpoint curves, negatives, polish)
+  configs/                  experiment configs and the campaign's batch files
+results/                    curated figures and numbers, one folder per method
+docs/                       write-ups (see below)
+scripts/                    data setup, attribute inspection, smoke/integration tests
+infra/                      GPU-VM orchestration and the multi-node cluster launcher
+archive/                    one-off campaign helpers, kept for the record
+```
 
 ## Quick start
+
+Run everything **from the repository root**; scripts are modules, run with
+`python -m`.
 
 ```bash
 pip install torch torchvision matplotlib numpy
 # optional: pip install lpips wandb gdown
 
 python scripts/smoke_test.py          # verify the code (no CelebA needed)
-python scripts/integration_test.py    # verify the pipeline  (no CelebA needed)
+python scripts/integration_test.py    # verify the whole pipeline (no CelebA needed)
 ```
 
-Then get CelebA (see `scripts/README_data.md`) and:
+Then put CelebA under `data/celeba/` (see [scripts/README_data.md](scripts/README_data.md)) and:
 
 ```bash
-python scripts/inspect_attributes.py            # pick a viable feature pair
-bash scripts/run_pipeline.sh                    # full experiment
+python scripts/inspect_attributes.py                  # pick a viable feature pair
+bash scripts/run_pipeline.sh                          # train + run Methods 1 and 2 end to end
 ATTR_A=Male ATTR_B=Smiling NPROC=4 bash scripts/run_pipeline.sh   # 4 GPUs
+
+# with trained checkpoints in runs/:
+python -m experiments.method2_alternating.iterations --init real   # Method 2, K-cycle study
 ```
 
-## Running the phases manually
+Trained weights are not in the repository (they stay on the training machine).
 
-```bash
-# Phase 1 — one IGN per feature
-python train_ign.py --attr_spec "Smiling"    --run_name Smiling    --num_epochs 60
-python train_ign.py --attr_spec "Eyeglasses" --run_name Eyeglasses --num_epochs 60
+## Documentation
 
-# Phase 3 — the baseline trained directly on the intersection
-python train_ign.py --attr_spec "Smiling,Eyeglasses" --run_name Smiling_AND_Eyeglasses --num_epochs 60
-
-# evaluation instrument
-python train_classifier.py --epochs 8
-
-# Phases 2 & 4 — alternate, compare, test order sensitivity
-python run_experiment.py \
-    --models runs/Smiling/ckpt_last.pt runs/Eyeglasses/ckpt_last.pt \
-    --names f_A f_B \
-    --baseline runs/Smiling_AND_Eyeglasses/ckpt_last.pt \
-    --intersection_spec "Smiling,Eyeglasses" \
-    --num_iters 20 --num_samples 2048
-
-python make_figures.py --results results/Smiling_AND_Eyeglasses
-```
-
-Multi-GPU: prefix any training command with
-`torchrun --nproc_per_node=8` and add `--ddp`.
-
-### Attribute specs
-
-`--attr_spec` accepts comma-separated CelebA attribute names; prefix with `-`
-to require *absence*:
-
-```
-"Smiling"                smiling
-"Smiling,Eyeglasses"     smiling AND wearing glasses      <- an intersection
-"Smiling,-Male"          smiling AND not male
-"all"                    unfiltered
-```
-
-### Scaling past two features
-
-Everything generalises to `K` models — pass more checkpoints:
-
-```bash
-python run_experiment.py \
-  --models runs/Smiling/ckpt_last.pt runs/Eyeglasses/ckpt_last.pt runs/Male/ckpt_last.pt \
-  --names f_A f_B f_C \
-  --baseline runs/Smiling_AND_Eyeglasses_AND_Male/ckpt_last.pt \
-  --intersection_spec "Smiling,Eyeglasses,Male"
-```
-
-All `K!` orders are evaluated automatically (6 for K=3).
-
-## How each proposal question is answered
-
-| Proposal question | Where | Output |
-|---|---|---|
-| Can an IGN project onto an intersection? (contribution 1) | `train_ign.py` with a multi-attribute spec | `attr_rates.baseline` — how often `f_A∩B` output has both features |
-| Does alternating converge? | `alternating.py` → `step_norm` | `figures/convergence.png`; `alternating.converged` |
-| Does it diverge / zigzag? (challenge 2) | `cycle_distance`, `image_norm` | `figures/convergence.png`; `alternating.diverged` |
-| Is `x*` in the intersection? | `metrics.attr_rates` | `attr_rates.alternating.joint` |
-| Does `x*` match `f_A∩B(x_0)`? (Phase 4) | `metrics.paired_distances` | `paired_vs_baseline` (L2/PSNR/SSIM/LPIPS) |
-| Are outputs realistic? | `metrics.frechet_distance` | `distribution.*.fid` |
-| Does order matter? | `alternating.run_all_orders`; dedicated study: `order_experiment.py` | `orders`, `order_disagreement`; [ORDER_EXPERIMENT.md](ORDER_EXPERIMENT.md) |
-| Enough data for the baseline? (challenge 1) | `scripts/inspect_attributes.py` | intersection counts before training |
-
-### Reading the diagnostics
-
-`alternating.py` records, per iteration:
-
-- **`step_norm`** `‖x_{n+1}−x_n‖` — shrinking toward 0 ⇒ convergence.
-- **`idem_residual_i`** `‖f_i(x_n)−x_n‖` — distance to each model's fixed-point
-  set. **All of them small at once is the operational definition of "in the
-  intersection".**
-- **`cycle_distance`** `min_{m<n}‖x_n−x_m‖` — near 0 while `step_norm` stays
-  large ⇒ a limit cycle (the "zigzagging" the proposal warns about), not
-  convergence.
-- **`image_norm`** — growing without bound ⇒ numerical explosion.
-
-If the undamped iteration oscillates, `damped_alternating_projection`
-(`x_{n+1} = (1−α)x_n + α f(x_n)`) is the standard remedy and is run
-automatically; compare in `figures/damping.png`.
-
-## Interpreting the headline number
-
-`attr_rates.*.joint` is the fraction of outputs the classifier says carry **all**
-target attributes. Compare four rows:
-
-- `x0` — the input (chance level)
-- `single_f_A` / `single_f_B` — one IGN alone; should get *its own* attribute
-  right and the other one wrong
-- `alternating` — **the method under test**
-- `baseline` — the directly trained `f_A∩B`
-- `real_intersection` — real `A∩B` photos; the classifier's ceiling, since it is
-  not a perfect judge
-
-The claim "alternating projection reaches the intersection zero-shot" is
-supported to the extent `alternating` approaches `baseline` and
-`real_intersection`, while clearly exceeding both single models.
-
-## Caveats worth stating in the report
-
-- **FID needs samples.** InceptionV3 features are 2048-d; with fewer samples
-  than that the covariance is rank-deficient and FID is strongly biased.
-  Use `--num_samples 2048` minimum (10000 ideally) for reported numbers.
-  `metrics.py` prints a warning when the estimate is unreliable.
-- **KID can be negative.** It is the unbiased MMD² estimator, so
-  same-distribution samples fluctuate around zero. Not a bug; compare KIDs
-  against each other.
-- **The classifier is not ground truth.** Always report
-  `real_intersection` alongside, as the achievable ceiling.
-- **Von Neumann's theorem does not apply here.** It assumes orthogonal
-  projections onto convex sets. IGNs are non-linear, oblique, and only
-  approximately idempotent, so convergence is an empirical question — which is
-  precisely what this code measures. The proposal already frames the theorem as
-  inspiration only; keep that framing.
-
-## Relationship to upstream (`IGN-main`) and the paper
-
-Preserved exactly:
-- the three IGN losses, including which copy of `f` receives the gradient
-  (`f_copy` for `loss_out`, detached `f_z` for `loss_out_d`), and the tanh
-  clamp on the discriminative term;
-- the DCGAN-enhanced 64×64 architecture (`--arch dcgan_enhanced`) and its
-  weight init.
-
-Paper-faithful defaults (note: Shocher's released `run_celeba.sh` and his
-paper's Appendix C **disagree**; the defaults follow the paper):
-- loss weights `20 / 20 / 2.5` with clamp ratio `1.5` (the script used
-  `1 / 1 / 10` with clamp ratio `1.0` — pass those flags to reproduce it);
-- `--noise_type x_fft_stats`: noise with the data's per-frequency statistics,
-  as the paper uses for CelebA (the script used plain white noise);
-- `--arch dcgan`: the plain 5-layer DCGAN autoencoder the paper describes
-  (the script pointed at a `MUNet` whose file is missing from the skeleton;
-  the skeleton's `dcgan.py` has a channel mismatch and cannot run);
-- sample grids and experiments run with **train-mode BatchNorm** (batch
-  statistics), the only mode upstream ever uses — an IGN's running stats are
-  polluted by the noise/generated batches, so eval-mode outputs can look
-  collapsed even when the model is healthy (`run_experiment.py --bn_mode eval`
-  restores the old behaviour);
-- training checkpoints now carry the noise frequency statistics, so
-  `run_experiment.py --init noise` samples matched noise; old checkpoints fall
-  back to white noise with a warning, and `--arch` is read from the checkpoint
-  (old ones load as `dcgan_enhanced`).
-
-Changed, and why:
-- **attribute filtering** — upstream has no notion of subsets; this is the
-  project's core requirement;
-- **`SyncBatchNorm` → `resolve_norm()`** — `SyncBatchNorm` raises without an
-  initialised process group, so upstream cannot run off a multi-GPU cluster.
-  Now auto-selects `SyncBatchNorm` under DDP, `BatchNorm2d` otherwise;
-- **`DistributedSampler` made conditional** — same reason;
-- **wandb optional** — upstream hard-codes an entity name and crashes offline;
-- **added** inference/checkpoint loading, the alternating module, metrics, and
-  figures — none of which exist upstream.
+| Document | Contents |
+|---|---|
+| [docs/RESULTS.md](docs/RESULTS.md) | the main experimental campaign: Methods 1 and 2, empirical laws, scaling past two features |
+| [docs/method2_iterations.md](docs/method2_iterations.md) | Method 2: effect of the number of cycles K, and of the order, judged visually |
+| [docs/method2_order.md](docs/method2_order.md) | Method 2: order-of-application study with statistics |
+| [docs/method3_commuting.md](docs/method3_commuting.md) | Method 3: commuting-loss experiment and hyperparameter sweep |
+| [docs/TRAINING.md](docs/TRAINING.md) | how to train an IGN and tune its hyperparameters |
+| [docs/PIPELINE.md](docs/PIPELINE.md) | running each phase by hand, attribute specs, reading the diagnostics, caveats, relation to upstream |

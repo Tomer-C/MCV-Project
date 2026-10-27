@@ -1,9 +1,0 @@
-[
-  {"name": "black_ckpt_metrics",
-   "args": ["rebuild_loss_curves.py", "--run_dir", "runs/Black_Hair_200",
-            "--classifier", "runs/classifier/classifier.pt"]},
-  {"name": "black_metrics_copy",
-   "args": ["copy_results.py", "runs/Black_Hair_200/ckpt_metrics.json",
-            "runs/Black_Hair_200/loss_curves.png",
-            "exp_results/adaptive_b14/black_metrics"]}
-]

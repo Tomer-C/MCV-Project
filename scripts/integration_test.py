@@ -1,4 +1,4 @@
-"""Integration test: runs train_ign.py and run_experiment.py for real, on a
+"""Integration test: runs train/train_ign.py and experiments/method1_single_ign/run_experiment.py for real, on a
 synthetic stand-in for CelebA. Catches wiring bugs that unit tests miss
 (argument plumbing, checkpoint round-trips, file outputs, figure generation).
 
@@ -25,7 +25,7 @@ sys.path.insert(0, ROOT)
 FAKE_DATA = '''
 import torch, random
 from torch.utils.data import Dataset
-import ign_data as _d
+import ign.data as _d
 
 class _Fake(Dataset):
     def __init__(self, n=64, seed=0):
@@ -81,18 +81,18 @@ def main():
 
         for spec, name in [("Smiling", "f_A"), ("Eyeglasses", "f_B"),
                            ("Smiling,Eyeglasses", "f_AB")]:
-            run([sys.executable, "train_ign.py", "--attr_spec", spec, "--run_name", name,
+            run([sys.executable, "-m", "train.train_ign", "--attr_spec", spec, "--run_name", name,
                  "--out_dir", os.path.join(tmp, "runs")] + common, ROOT, env)
             ck = os.path.join(tmp, "runs", name, "ckpt_last.pt")
             assert os.path.exists(ck), f"missing checkpoint {ck}"
         print("\n  [checkpoints written]")
 
-        run([sys.executable, "train_classifier.py", "--epochs", "1", "--batch_size", "8",
+        run([sys.executable, "-m", "train.train_classifier", "--epochs", "1", "--batch_size", "8",
              "--num_workers", "0", "--device", "cpu", "--max_steps_per_epoch", "3",
              "--data_root", os.path.join(tmp, "data"),
              "--out", os.path.join(tmp, "runs", "classifier", "classifier.pt")], ROOT, env)
 
-        run([sys.executable, "run_experiment.py",
+        run([sys.executable, "-m", "experiments.method1_single_ign.run_experiment",
              "--models", os.path.join(tmp, "runs", "f_A", "ckpt_last.pt"),
              os.path.join(tmp, "runs", "f_B", "ckpt_last.pt"),
              "--names", "f_A", "f_B",
@@ -113,7 +113,7 @@ def main():
         assert "f_B o f_A" in res["orders"] and "f_A o f_B" in res["orders"]
         print(f"\n  [results.json complete: {list(res)}]")
 
-        run([sys.executable, "make_figures.py",
+        run([sys.executable, "-m", "experiments.method1_single_ign.make_figures",
              "--results", os.path.join(tmp, "results", "test")], ROOT, env)
         figs = os.listdir(os.path.join(tmp, "results", "test", "figures"))
         for expected in ["convergence.png", "attr_rates.png", "orders.png",
