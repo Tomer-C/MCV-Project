@@ -43,7 +43,7 @@ f_Male∩Smiling baseline.*
     (Male + Blond) fail under every method; compatible triples and quads
     scale gracefully with relaxed steps, while plain cyclic alternation does
     not extend past two classes
-    ([multi-class results](results/method2_alternating/multi_class/)).
+    ([method2_multi_class.md](docs/method2_multi_class.md)).
 - **Method 3.** The commute loss does make the networks commute, but mostly
   by mapping inputs onto one shared face. A very short, low-lr fine-tune
   (1–5 epochs, λ = 5, lr = 2e-5) gives a small in-distribution gain (about
@@ -107,6 +107,7 @@ Trained weights are not in the repository (they stay on the training machine).
 | [docs/RESULTS.md](docs/RESULTS.md) | the main experimental campaign: Methods 1 and 2, empirical laws, scaling past two features |
 | [docs/method2_iterations.md](docs/method2_iterations.md) | Method 2: effect of the number of cycles K, and of the order, judged visually |
 | [docs/method2_order.md](docs/method2_order.md) | Method 2: order-of-application study with statistics |
+| [docs/method2_multi_class.md](docs/method2_multi_class.md) | Method 2: does plain alternation extend past two classes (order, controls, checkpoints) |
 | [docs/method3_commuting.md](docs/method3_commuting.md) | Method 3: commuting-loss experiment and hyperparameter sweep |
 | [docs/TRAINING.md](docs/TRAINING.md) | how to train an IGN and tune its hyperparameters |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | running each phase by hand, attribute specs, reading the diagnostics, caveats, relation to upstream |

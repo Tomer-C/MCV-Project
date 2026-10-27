@@ -1,0 +1,540 @@
+{
+  "config": {
+    "runs_dir": "runs/runs",
+    "data_root": "./data",
+    "classifier": null,
+    "features": [
+      "Male",
+      "Black_Hair"
+    ],
+    "ckpt": [],
+    "init": "noise",
+    "noise_stats": "Male_500_withsamples/ckpt_0075.pt",
+    "all_orders": false,
+    "num_samples": 512,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "max_iters": 4,
+    "batch_size": 256,
+    "image_size": 64,
+    "out": "exp_results/multi_class/pair_Male_Black_Hair_noise"
+  },
+  "device": "cpu",
+  "ckpts": {
+    "Male": "Male_500_withsamples/ckpt_0075.pt",
+    "Black_Hair": "Black_Hair_200/ckpt_0150.pt"
+  },
+  "seeds": [
+    {
+      "seed": 0,
+      "x0": {
+        "Male": 0.859375,
+        "Black_Hair": 0.0,
+        "joint_all": 0.0,
+        "Male&Black_Hair": 0.0,
+        "joint_residual": 0.6852597594261169
+      },
+      "single": {
+        "Male": {
+          "Male": 0.998046875,
+          "Black_Hair": 0.33984375,
+          "joint_all": 0.337890625,
+          "Male&Black_Hair": 0.337890625,
+          "joint_residual": 0.06745467334985733
+        },
+        "Black_Hair": {
+          "Male": 0.552734375,
+          "Black_Hair": 0.83203125,
+          "joint_all": 0.498046875,
+          "Male&Black_Hair": 0.498046875,
+          "joint_residual": 0.06703336536884308
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.904296875,
+          "Black_Hair": 0.48828125,
+          "joint_all": 0.45703125,
+          "Male&Black_Hair": 0.45703125,
+          "joint_residual": 0.0796741172671318
+        },
+        {
+          "Male": 0.90234375,
+          "Black_Hair": 0.3046875,
+          "joint_all": 0.28515625,
+          "Male&Black_Hair": 0.28515625,
+          "joint_residual": 0.08024255931377411
+        },
+        {
+          "Male": 0.875,
+          "Black_Hair": 0.1640625,
+          "joint_all": 0.14453125,
+          "Male&Black_Hair": 0.14453125,
+          "joint_residual": 0.07199699431657791
+        },
+        {
+          "Male": 0.8671875,
+          "Black_Hair": 0.12890625,
+          "joint_all": 0.11328125,
+          "Male&Black_Hair": 0.11328125,
+          "joint_residual": 0.06690730899572372
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.904296875,
+          "Black_Hair": 0.48828125,
+          "joint_all": 0.45703125,
+          "Male&Black_Hair": 0.45703125,
+          "joint_residual": 0.0796741172671318
+        },
+        {
+          "Male": 0.90234375,
+          "Black_Hair": 0.3046875,
+          "joint_all": 0.28515625,
+          "Male&Black_Hair": 0.28515625,
+          "joint_residual": 0.08024255931377411
+        },
+        {
+          "Male": 0.875,
+          "Black_Hair": 0.1640625,
+          "joint_all": 0.14453125,
+          "Male&Black_Hair": 0.14453125,
+          "joint_residual": 0.07199699431657791
+        },
+        {
+          "Male": 0.8671875,
+          "Black_Hair": 0.12890625,
+          "joint_all": 0.11328125,
+          "Male&Black_Hair": 0.11328125,
+          "joint_residual": 0.06690730899572372
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "x0": {
+        "Male": 0.830078125,
+        "Black_Hair": 0.0,
+        "joint_all": 0.0,
+        "Male&Black_Hair": 0.0,
+        "joint_residual": 0.6789970397949219
+      },
+      "single": {
+        "Male": {
+          "Male": 0.994140625,
+          "Black_Hair": 0.310546875,
+          "joint_all": 0.30859375,
+          "Male&Black_Hair": 0.30859375,
+          "joint_residual": 0.06770191341638565
+        },
+        "Black_Hair": {
+          "Male": 0.552734375,
+          "Black_Hair": 0.814453125,
+          "joint_all": 0.482421875,
+          "Male&Black_Hair": 0.482421875,
+          "joint_residual": 0.0668879896402359
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.8984375,
+          "Black_Hair": 0.466796875,
+          "joint_all": 0.443359375,
+          "Male&Black_Hair": 0.443359375,
+          "joint_residual": 0.07858063280582428
+        },
+        {
+          "Male": 0.8828125,
+          "Black_Hair": 0.3046875,
+          "joint_all": 0.279296875,
+          "Male&Black_Hair": 0.279296875,
+          "joint_residual": 0.0799073874950409
+        },
+        {
+          "Male": 0.880859375,
+          "Black_Hair": 0.201171875,
+          "joint_all": 0.185546875,
+          "Male&Black_Hair": 0.185546875,
+          "joint_residual": 0.07175876200199127
+        },
+        {
+          "Male": 0.87109375,
+          "Black_Hair": 0.1484375,
+          "joint_all": 0.1328125,
+          "Male&Black_Hair": 0.1328125,
+          "joint_residual": 0.06660810112953186
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.8984375,
+          "Black_Hair": 0.466796875,
+          "joint_all": 0.443359375,
+          "Male&Black_Hair": 0.443359375,
+          "joint_residual": 0.07858063280582428
+        },
+        {
+          "Male": 0.8828125,
+          "Black_Hair": 0.3046875,
+          "joint_all": 0.279296875,
+          "Male&Black_Hair": 0.279296875,
+          "joint_residual": 0.0799073874950409
+        },
+        {
+          "Male": 0.880859375,
+          "Black_Hair": 0.201171875,
+          "joint_all": 0.185546875,
+          "Male&Black_Hair": 0.185546875,
+          "joint_residual": 0.07175876200199127
+        },
+        {
+          "Male": 0.87109375,
+          "Black_Hair": 0.1484375,
+          "joint_all": 0.1328125,
+          "Male&Black_Hair": 0.1328125,
+          "joint_residual": 0.06660810112953186
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "x0": {
+        "Male": 0.853515625,
+        "Black_Hair": 0.001953125,
+        "joint_all": 0.001953125,
+        "Male&Black_Hair": 0.001953125,
+        "joint_residual": 0.6785252690315247
+      },
+      "single": {
+        "Male": {
+          "Male": 0.998046875,
+          "Black_Hair": 0.291015625,
+          "joint_all": 0.291015625,
+          "Male&Black_Hair": 0.291015625,
+          "joint_residual": 0.06699107587337494
+        },
+        "Black_Hair": {
+          "Male": 0.556640625,
+          "Black_Hair": 0.8046875,
+          "joint_all": 0.49609375,
+          "Male&Black_Hair": 0.49609375,
+          "joint_residual": 0.06737009435892105
+        }
+      },
+      "multi": [
+        {
+          "Male": 0.908203125,
+          "Black_Hair": 0.48046875,
+          "joint_all": 0.46484375,
+          "Male&Black_Hair": 0.46484375,
+          "joint_residual": 0.08029991388320923
+        },
+        {
+          "Male": 0.869140625,
+          "Black_Hair": 0.2890625,
+          "joint_all": 0.263671875,
+          "Male&Black_Hair": 0.263671875,
+          "joint_residual": 0.08076763153076172
+        },
+        {
+          "Male": 0.85546875,
+          "Black_Hair": 0.16015625,
+          "joint_all": 0.13671875,
+          "Male&Black_Hair": 0.13671875,
+          "joint_residual": 0.07207280397415161
+        },
+        {
+          "Male": 0.841796875,
+          "Black_Hair": 0.130859375,
+          "joint_all": 0.111328125,
+          "Male&Black_Hair": 0.111328125,
+          "joint_residual": 0.0668373554944992
+        }
+      ],
+      "pair": [
+        {
+          "Male": 0.908203125,
+          "Black_Hair": 0.48046875,
+          "joint_all": 0.46484375,
+          "Male&Black_Hair": 0.46484375,
+          "joint_residual": 0.08029991388320923
+        },
+        {
+          "Male": 0.869140625,
+          "Black_Hair": 0.2890625,
+          "joint_all": 0.263671875,
+          "Male&Black_Hair": 0.263671875,
+          "joint_residual": 0.08076763153076172
+        },
+        {
+          "Male": 0.85546875,
+          "Black_Hair": 0.16015625,
+          "joint_all": 0.13671875,
+          "Male&Black_Hair": 0.13671875,
+          "joint_residual": 0.07207280397415161
+        },
+        {
+          "Male": 0.841796875,
+          "Black_Hair": 0.130859375,
+          "joint_all": 0.111328125,
+          "Male&Black_Hair": 0.111328125,
+          "joint_residual": 0.0668373554944992
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "x0": {
+      "Male": {
+        "mean": 0.84765625,
+        "std": 0.012657696676577852
+      },
+      "Black_Hair": {
+        "mean": 0.0006510416666666666,
+        "std": 0.0009207119546699837
+      },
+      "joint_all": {
+        "mean": 0.0006510416666666666,
+        "std": 0.0009207119546699837
+      },
+      "Male&Black_Hair": {
+        "mean": 0.0006510416666666666,
+        "std": 0.0009207119546699837
+      },
+      "joint_residual": {
+        "mean": 0.6809273560841879,
+        "std": 0.0030695201526371118
+      }
+    },
+    "single": {
+      "Male": {
+        "Male": {
+          "mean": 0.9967447916666666,
+          "std": 0.0018414239093399675
+        },
+        "Black_Hair": {
+          "mean": 0.3138020833333333,
+          "std": 0.0200664518325813
+        },
+        "joint_all": {
+          "mean": 0.3125,
+          "std": 0.01933495104806966
+        },
+        "Male&Black_Hair": {
+          "mean": 0.3125,
+          "std": 0.01933495104806966
+        },
+        "joint_residual": {
+          "mean": 0.06738255421320598,
+          "std": 0.00029464484897571085
+        }
+      },
+      "Black_Hair": {
+        "Male": {
+          "mean": 0.5540364583333334,
+          "std": 0.0018414239093399675
+        },
+        "Black_Hair": {
+          "mean": 0.8170572916666666,
+          "std": 0.011313897914702322
+        },
+        "joint_all": {
+          "mean": 0.4921875,
+          "std": 0.006951222820332885
+        },
+        "Male&Black_Hair": {
+          "mean": 0.4921875,
+          "std": 0.006951222820332885
+        },
+        "joint_residual": {
+          "mean": 0.06709714978933334,
+          "std": 0.00020192008182707852
+        }
+      }
+    },
+    "multi": [
+      {
+        "Male": {
+          "mean": 0.9036458333333334,
+          "std": 0.004013290366516261
+        },
+        "Black_Hair": {
+          "mean": 0.478515625,
+          "std": 0.0088790245423085
+        },
+        "joint_all": {
+          "mean": 0.455078125,
+          "std": 0.0088790245423085
+        },
+        "Male&Black_Hair": {
+          "mean": 0.455078125,
+          "std": 0.0088790245423085
+        },
+        "joint_residual": {
+          "mean": 0.07951822131872177,
+          "std": 0.0007104972511377674
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.884765625,
+          "std": 0.01362529266696377
+        },
+        "Black_Hair": {
+          "mean": 0.2994791666666667,
+          "std": 0.00736569563735987
+        },
+        "joint_all": {
+          "mean": 0.2760416666666667,
+          "std": 0.00906796111795841
+        },
+        "Male&Black_Hair": {
+          "mean": 0.2760416666666667,
+          "std": 0.00906796111795841
+        },
+        "joint_residual": {
+          "mean": 0.08030585944652557,
+          "std": 0.00035403401941346246
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8704427083333334,
+          "std": 0.010855033854513715
+        },
+        "Black_Hair": {
+          "mean": 0.17513020833333334,
+          "std": 0.018483163498148946
+        },
+        "joint_all": {
+          "mean": 0.15559895833333334,
+          "std": 0.021415213806508498
+        },
+        "Male&Black_Hair": {
+          "mean": 0.15559895833333334,
+          "std": 0.021415213806508498
+        },
+        "joint_residual": {
+          "mean": 0.07194285343090694,
+          "std": 0.0001338008886256426
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8600260416666666,
+          "std": 0.012988240457851566
+        },
+        "Black_Hair": {
+          "mean": 0.13606770833333334,
+          "std": 0.008783032267729193
+        },
+        "joint_all": {
+          "mean": 0.119140625,
+          "std": 0.009700302360515195
+        },
+        "Male&Black_Hair": {
+          "mean": 0.119140625,
+          "std": 0.009700302360515195
+        },
+        "joint_residual": {
+          "mean": 0.06678425520658493,
+          "std": 0.0001277916722122543
+        }
+      }
+    ],
+    "pair": [
+      {
+        "Male": {
+          "mean": 0.9036458333333334,
+          "std": 0.004013290366516261
+        },
+        "Black_Hair": {
+          "mean": 0.478515625,
+          "std": 0.0088790245423085
+        },
+        "joint_all": {
+          "mean": 0.455078125,
+          "std": 0.0088790245423085
+        },
+        "Male&Black_Hair": {
+          "mean": 0.455078125,
+          "std": 0.0088790245423085
+        },
+        "joint_residual": {
+          "mean": 0.07951822131872177,
+          "std": 0.0007104972511377674
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.884765625,
+          "std": 0.01362529266696377
+        },
+        "Black_Hair": {
+          "mean": 0.2994791666666667,
+          "std": 0.00736569563735987
+        },
+        "joint_all": {
+          "mean": 0.2760416666666667,
+          "std": 0.00906796111795841
+        },
+        "Male&Black_Hair": {
+          "mean": 0.2760416666666667,
+          "std": 0.00906796111795841
+        },
+        "joint_residual": {
+          "mean": 0.08030585944652557,
+          "std": 0.00035403401941346246
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8704427083333334,
+          "std": 0.010855033854513715
+        },
+        "Black_Hair": {
+          "mean": 0.17513020833333334,
+          "std": 0.018483163498148946
+        },
+        "joint_all": {
+          "mean": 0.15559895833333334,
+          "std": 0.021415213806508498
+        },
+        "Male&Black_Hair": {
+          "mean": 0.15559895833333334,
+          "std": 0.021415213806508498
+        },
+        "joint_residual": {
+          "mean": 0.07194285343090694,
+          "std": 0.0001338008886256426
+        }
+      },
+      {
+        "Male": {
+          "mean": 0.8600260416666666,
+          "std": 0.012988240457851566
+        },
+        "Black_Hair": {
+          "mean": 0.13606770833333334,
+          "std": 0.008783032267729193
+        },
+        "joint_all": {
+          "mean": 0.119140625,
+          "std": 0.009700302360515195
+        },
+        "Male&Black_Hair": {
+          "mean": 0.119140625,
+          "std": 0.009700302360515195
+        },
+        "joint_residual": {
+          "mean": 0.06678425520658493,
+          "std": 0.0001277916722122543
+        }
+      }
+    ]
+  }
+}

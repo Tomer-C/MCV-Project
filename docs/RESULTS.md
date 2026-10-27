@@ -111,10 +111,11 @@ Graceful yield decay for compatible sets; one adversarial member kills the
 whole iteration.
 
 These K=3/4 numbers use **relaxed** steps. Plain cyclic alternation
-(full-strength steps) does not extend: the per-order, per-checkpoint and
-real-face study is `experiments/method2_alternating/multi_class_experiment.py`,
-with results in [`results/method2_alternating/multi_class/`](../results/method2_alternating/multi_class/)
-(write-up to follow).
+(full-strength steps) does not extend: Male+Smiling+Black_Hair reaches 0.17
+from noise and about 0.01 from real faces, whatever the order or checkpoints,
+because the joint rate is just the product of the per-feature rates. The
+per-order, per-checkpoint and real-face study is in
+[method2_multi_class.md](method2_multi_class.md).
 
 ## Other findings
 

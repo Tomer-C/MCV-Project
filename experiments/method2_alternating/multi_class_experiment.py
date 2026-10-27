@@ -211,6 +211,12 @@ def main(args):
     print("done ->", args.out)
 
 
+def tex(a):
+    """Feature name for a mathtext subscript: ~Young -> \\neg Young, keeping underscores."""
+    name = r"\mathrm{" + a.lstrip("~").replace("_", r"\_") + "}"
+    return r"\neg " + name if a.startswith("~") else name
+
+
 def summarize(per_seed):
     """mean / std over seeds of every scalar."""
     def ms(dicts):
@@ -234,7 +240,7 @@ def grid(samples, path, n_cols=8, k_show=3):
     feats = samples["names"]
     chain = " → ".join(feats)
     rows = [("x$_0$ (start)", samples["x0"], None)]
-    rows += [(f"$f_{{{a}}}$ only", h, None) for a, h in zip(feats, samples["single"])]
+    rows += [(f"$f_{{{tex(a)}}}$ only", h, None) for a, h in zip(feats, samples["single"])]
     rows.append((f"{feats[0]} → {feats[1]}\n1 cycle (2-way)", samples["pair"][0], COLORS[0]))
     for k in range(min(k_show, len(samples["multi"]))):
         rows.append((f"{chain}\n{k + 1} cycle{'s' if k else ''}", samples["multi"][k], COLORS[1]))
@@ -296,7 +302,7 @@ def rate_plot(results, path):
         ax.axhline(s["x0"][metric]["mean"], color="#9ca3af", ls=":", label="x$_0$")
         for i, a in enumerate(feats):
             ax.axhline(s["single"][a][metric]["mean"], color=COLORS[2 + i % 3], ls="--", alpha=.6,
-                       label=f"$f_{{{a}}}$ only")
+                       label=f"$f_{{{tex(a)}}}$ only")
         ax.set_title(title, fontsize=10); ax.set_xlabel("alternation cycles"); ax.set_xticks(ks)
         if metric != "joint_residual":
             ax.set_ylim(0, 1.02)
