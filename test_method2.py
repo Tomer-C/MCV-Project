@@ -17,18 +17,22 @@ Two kinds of test, chosen by the starting point x_0 (--init):
          --noise_stats_spec ("Male,Smiling", as in RESULTS.md);
          --noise_stats_spec "" uses the statistics stored in the checkpoint of
          the network applied first instead. Output: results/method2_iterations/
-  real   (test 2) editing real CelebA test photos that are NOT smiling men:
-         photos matching --real_spec ("all") minus those matching
-         --real_exclude ("Male,Smiling"), i.e. smiling women, non-smiling men
-         and non-smiling women. The top row is the original photo and each
-         column is labelled with what the original shows.
+  real   (test 2) editing real CelebA test photos. By default these are the
+         same faces the other experiments use: CelebA test photos with
+         neither Male nor Smiling, shuffled with seed 0 -- exactly the
+         selection of real_edit_eval.py, whose first 8 are the faces in
+         results/limits/real_image_editing_grid.png and in the
+         order-of-application-experiment branch (CelebA files 182920,
+         193098, 197965, 200109, 182731, 192184, 192861, 188645). The top row
+         is the original photo; each column is labelled with what the
+         original shows and its CelebA file name.
          Output: results/method2_real/
   white  plain N(0,1) noise
 
 Usage:
     python test_method2.py                   # test 1: from noise
     python test_method2.py --init real       # test 2: from real photos
-    python test_method2.py --init real --real_spec "~Male,~Smiling" --real_exclude ""
+    python test_method2.py --init real --real_spec all --real_exclude "Male,Smiling"
     python test_method2.py --num_iters 20 --out_dir results/method2_k20
     python test_method2.py --order BA        # x_{k+1} = f_B(f_A(x_k)) instead
 
@@ -85,10 +89,11 @@ def parse_args():
     p.add_argument("--noise_stats_spec", default="Male,Smiling",
                    help="CelebA subset whose FFT statistics shape the noise; "
                         "'' = use the checkpoint's stored statistics")
-    p.add_argument("--real_spec", default="all",
+    p.add_argument("--real_spec", default="~Male,~Smiling",
                    help="CelebA subset the real starting photos come from "
-                        "('~X' = without X, 'all' = any face)")
-    p.add_argument("--real_exclude", default="Male,Smiling",
+                        "('~X' = without X, 'all' = any face). With the default "
+                        "and --seed 0 the first 8 are the repo's shared faces")
+    p.add_argument("--real_exclude", default="",
                    help="drop photos matching this spec from --real_spec "
                         "('' = drop nothing)")
     p.add_argument("--data_root", default="./data")
@@ -109,7 +114,9 @@ def attr_name(ckpt, path):
 def random_images(args, spec, split, n, exclude=""):
     """n random CelebA images matching `spec` but not `exclude` (seeded).
 
-    Returns (images, attrs); attrs is (n, 40) with 0/1 entries.
+    Same selection as metrics.collect_real_images, so with the same spec and
+    seed the images match the other experiment scripts.
+    Returns (images, attrs, filenames); attrs is (n, 40) with 0/1 entries.
     """
     data_args = argparse.Namespace(data_root=args.data_root, image_size=64)
     ds = get_filtered_dataset(data_args, spec, split=split)
@@ -122,26 +129,29 @@ def random_images(args, spec, split, n, exclude=""):
     g = torch.Generator().manual_seed(args.seed)
     idx = torch.randperm(len(ds), generator=g)[:n]
     items = [ds[int(i)] for i in idx]
-    return torch.stack([x for x, _ in items], 0), torch.stack([a for _, a in items], 0)
+    names = [ds.base.filename[ds.indices[int(i)]] for i in idx]
+    return (torch.stack([x for x, _ in items], 0), torch.stack([a for _, a in items], 0),
+            names)
 
 
-def describe_face(attrs):
-    """Column label for a real photo, e.g. 'woman\\nsmiling'."""
+def describe_face(attrs, filename):
+    """Column label for a real photo, e.g. 'woman\\nsmiling\\n182920.jpg'."""
     who = "man" if attrs[ATTR_TO_IDX["Male"]] == 1 else "woman"
     smile = "smiling" if attrs[ATTR_TO_IDX["Smiling"]] == 1 else "not smiling"
-    return f"{who}\n{smile}"
+    return f"{who}\n{smile}\n{filename}"
 
 
 def starting_point(args, ckpt, ckpt_path, device):
     """Returns (x0, description, column labels or None)."""
     if args.init == "real":
-        x0, attrs = random_images(args, args.real_spec, "test", args.batch_size,
-                                  exclude=args.real_exclude)
-        desc = f"real photos ({args.real_spec}"
-        desc += f", excluding {args.real_exclude})" if args.real_exclude else ")"
-        return x0.to(device), desc, [describe_face(a) for a in attrs]
+        x0, attrs, names = random_images(args, args.real_spec, "test", args.batch_size,
+                                         exclude=args.real_exclude)
+        desc = f"real CelebA test photos ({args.real_spec}"
+        desc += f", excluding {args.real_exclude}" if args.real_exclude else ""
+        desc += f", seed {args.seed})"
+        return x0.to(device), desc, [describe_face(a, n) for a, n in zip(attrs, names)]
     if args.init == "noise" and args.noise_stats_spec:
-        imgs, _ = random_images(args, args.noise_stats_spec, "train", 256)
+        imgs, _, _ = random_images(args, args.noise_stats_spec, "train", 256)
         stats = freq_stats_from_images(imgs.to(device))
         return (sample_freq_noise(stats, args.batch_size),
                 f"noise with FFT stats of {args.noise_stats_spec}", None)
@@ -181,7 +191,7 @@ def save_evolution(trajectory, show_iters, n_show, title, path, real_input,
     if col_labels:
         ax.xaxis.tick_top()
         ax.set_xticks([2 + c * (side + 2) + side / 2 for c in range(n_show)])
-        ax.set_xticklabels(col_labels[:n_show], fontsize=8)
+        ax.set_xticklabels(col_labels[:n_show], fontsize=7)
         ax.tick_params(axis="x", length=0)
     else:
         ax.set_xticks([])
@@ -222,13 +232,13 @@ def save_order_comparison(traj_1, traj_2, order_labels, show_iters, n_show, titl
         ax.axvline(p * 2 * cell + 1, color="white", lw=4)
     if col_labels:
         for p in range(n_show):
-            ax.annotate(col_labels[p].replace("\n", ", "), xy=(p * 2 * cell + cell + 1, 1),
+            ax.annotate(col_labels[p].replace("\n", ", ", 1), xy=(p * 2 * cell + cell + 1, 1),
                         xycoords=("data", "axes fraction"), xytext=(0, 24),
                         textcoords="offset points", ha="center", va="bottom",
                         fontsize=8, fontweight="bold")
     for s in ax.spines.values():
         s.set_visible(False)
-    ax.set_title(title, fontsize=10, pad=44 if col_labels else 30)
+    ax.set_title(title, fontsize=10, pad=56 if col_labels else 30)
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
